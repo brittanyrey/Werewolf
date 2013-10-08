@@ -1,0 +1,9 @@
+import urllib2
+import base64
+import urllib
+
+username = "robert"
+password = "123456"
+
+request = urllib2.Request("http://localhost
+base64string= base
