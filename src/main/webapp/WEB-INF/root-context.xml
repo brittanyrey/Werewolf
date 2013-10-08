@@ -15,9 +15,7 @@
 	<context:annotation-config />
 	<mvc:annotation-driven />
 	
-	<task:annotation-driven executor="myExecutor" scheduler="myScheduler" />
-	<task:executor id="myExecutor" pool-size="5" />
-	<task:scheduler id="myScheduler" pool-size="10" />
+	
 		
 	<!-- Mongo -->
 	<mongo:mongo host="localhost" port="28017"/>
@@ -31,5 +29,6 @@
 	<bean id="gameService" class="edu.wm.werewolf.service.GameService"/>
 	<bean id="UserDAO" class="edu.wm.werewolf.dao.MongoUserDao"/>
 	<bean id="KillsDAO" class="edu.wm.werewolf.dao.MongoKillsDAO"/>
+	<bean id="homeController" class = "edu.wm.werewolf.HomeController"/>
 	
 </beans>
