@@ -29,6 +29,9 @@ public class GameService {
 	
 	public List<Player> getAllAlive()
 	{
+		if(game == null) {
+			return null;
+		}
 		if(!game.getIsRunning()) {
 			return null;
 		}
@@ -37,6 +40,9 @@ public class GameService {
 	
 	public List<Player> getAllPlayersNear(Player player)
 	{
+		if(game == null) {
+			return null;
+		}
 		if(!game.getIsRunning()) {
 			return null;
 		}
@@ -127,8 +133,10 @@ public class GameService {
 	
 	public void checkGame()
 	{
-		if(!game.getIsRunning()) {
-		}
+		if (game == null) {}
+		
+		else if (!game.getIsRunning()) {}
+		
 		else if ((playerDAO.getAllWerewolves().size() == 0) ||  
 				(playerDAO.getAllWerewolves().size() > playerDAO.getAllTownspeople().size()))
 		{

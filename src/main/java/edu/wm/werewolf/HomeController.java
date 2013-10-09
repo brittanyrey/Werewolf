@@ -101,7 +101,7 @@ public class HomeController {
 	}	
 	
 	public void CheckGameOperation () {
-		logger.info("checking game operation...");
+		logger.info("Checking game operation...");
 		gameService.checkGame();
 	}
 }

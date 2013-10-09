@@ -22,8 +22,8 @@
 	
 	<bean id="timerTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
 		<property name="timerTask" ref="schedulerTask" />
-		<property name="delay" value="1000" />
-		<property name="period" value="60000" />
+		<property name="delay" value="5000" />
+		<property name="period" value="10000" />
 	</bean>
 	
 	<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
