@@ -15,11 +15,28 @@
 	<context:annotation-config />
 	<mvc:annotation-driven />
 	
+	<bean id="schedulerTask" class="org.springframework.scheduling.timer.MethodInvokingTimerTaskFactoryBean">
+		<property name="targetObject" ref="homeController" />
+		<property name="targetMethod" value="CheckGameOperation" />
+	</bean>
 	
+	<bean id="timerTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="timerTask" ref="schedulerTask" />
+		<property name="delay" value="1000" />
+		<property name="period" value="60000" />
+	</bean>
+	
+	<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref local="timerTask" />
+			</list>
+		</property>
+	</bean>
 		
 	<!-- Mongo -->
-	    <bean id="mongoURI" class="com.mongodb.MongoURI">
-      <constructor-arg value="${MONGOHQ_URL}"/>
+    <bean id="mongoURI" class="com.mongodb.MongoURI">
+      <constructor-arg value="mongodb://werewolf:werewolf@paulo.mongohq.com:10087/Werewolf"/>
     </bean>
   
     <!-- create db object by calling getDB on mongo bean -->
@@ -46,6 +63,9 @@
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>
+	
+	<mongo:mongo host = "paulo.mongohq.com" port="10087"/>
+	<mongo:db-factory dbname = "Werewolf"/>
 	
 	<bean id="playerDAO" class="edu.wm.werewolf.dao.MongoPlayerDAO" />
 	<bean id="gameService" class="edu.wm.werewolf.service.GameService"/>

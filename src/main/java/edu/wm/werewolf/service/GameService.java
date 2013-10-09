@@ -29,22 +29,34 @@ public class GameService {
 	
 	public List<Player> getAllAlive()
 	{
+		if(!game.getIsRunning()) {
+			return null;
+		}
 		return playerDAO.getAllAlive();
 	}
 	
 	public List<Player> getAllPlayersNear(Player player)
 	{
+		if(!game.getIsRunning()) {
+			return null;
+		}
 		return playerDAO.getAllNear(player);
 	}
 	
 	public void updatePosition(String userName, GPSLocation location)
 	{
-		User user = userDAO.getUserbyID(userName);
-		playerDAO.setPlayerLocation(user.getId(), location);	
+		if(game.getIsRunning()) {
+			User user = userDAO.getUserbyID(userName);
+			playerDAO.setPlayerLocation(user.getId(), location);
+		}	
 	}
 	
 	public boolean canKill(Player killer, Player victim) {
-		System.out.println(game.isNight());
+		if(!game.getIsRunning()) {
+			return false;
+		}
+		
+		System.out.println("Is night: " + game.isNight());
 		if (killer.isWerewolf() && !victim.isWerewolf() && !victim.isDead() && game.isNight())
 		{
 			return true;
@@ -57,11 +69,13 @@ public class GameService {
 	
 	public void setKill (Kill kill)
 	{
-		killsDAO.setKill(kill);
-		try {
-			playerDAO.setDead(playerDAO.getPlayerByID(kill.getVictimID()));
-		} catch (NoPlayerFoundException e) {
-			e.printStackTrace();
+		if(game.getIsRunning()) {
+			killsDAO.setKill(kill);
+			try {
+				playerDAO.setDead(playerDAO.getPlayerByID(kill.getVictimID()));
+			} catch (NoPlayerFoundException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -106,15 +120,22 @@ public class GameService {
 	}
 
 	public void vote(Player player, Player votee) {
-		playerDAO.vote(player, votee);		
+		if(game.getIsRunning()) {
+			playerDAO.vote(player, votee);
+		}		
 	}
 	
 	public void checkGame()
 	{
-		if ((playerDAO.getAllWerewolves().size() == 0) ||  
+		if(!game.getIsRunning()) {
+		}
+		else if ((playerDAO.getAllWerewolves().size() == 0) ||  
 				(playerDAO.getAllWerewolves().size() > playerDAO.getAllTownspeople().size()))
 		{
 			game.setIsRunning(false);
 		}
+		//TODO add another else if that checks if its time to vote
+		//& also if it's time to collect votes.
+		// must vote off person who is voted most
 	}
 }

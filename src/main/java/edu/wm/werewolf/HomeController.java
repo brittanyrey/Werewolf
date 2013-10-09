@@ -100,7 +100,6 @@ public class HomeController {
 		logger.info("Vote cast");
 	}	
 	
-	@Scheduled(fixedDelay=5000)
 	public void CheckGameOperation () {
 		logger.info("checking game operation...");
 		gameService.checkGame();
