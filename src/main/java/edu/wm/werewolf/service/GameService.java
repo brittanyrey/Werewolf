@@ -2,13 +2,12 @@ package edu.wm.werewolf.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.CountDownLatch;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import edu.wm.werewolf.dao.IGameDAO;
 import edu.wm.werewolf.dao.IKillsDAO;
 import edu.wm.werewolf.dao.IPlayerDAO;
 import edu.wm.werewolf.dao.IUserDAO;
@@ -24,15 +23,11 @@ public class GameService {
 	@Autowired private IPlayerDAO playerDAO;
 	@Autowired private IUserDAO userDAO;
 	@Autowired private IKillsDAO killsDAO;
-	
-	private Game game;
+	@Autowired private IGameDAO gameDAO;
 	
 	public List<Player> getAllAlive()
 	{
-		if(game == null) {
-			return null;
-		}
-		if(!game.getIsRunning()) {
+		if(!gameDAO.getIsRunning()) {
 			return null;
 		}
 		return playerDAO.getAllAlive();
@@ -40,10 +35,7 @@ public class GameService {
 	
 	public List<Player> getAllPlayersNear(Player player)
 	{
-		if(game == null) {
-			return null;
-		}
-		if(!game.getIsRunning()) {
+		if(!gameDAO.getIsRunning()) {
 			return null;
 		}
 		return playerDAO.getAllNear(player);
@@ -51,19 +43,19 @@ public class GameService {
 	
 	public void updatePosition(String userName, GPSLocation location)
 	{
-		if(game.getIsRunning()) {
+		if(gameDAO.getIsRunning()) {
 			User user = userDAO.getUserbyID(userName);
 			playerDAO.setPlayerLocation(user.getId(), location);
 		}	
 	}
 	
 	public boolean canKill(Player killer, Player victim) {
-		if(!game.getIsRunning()) {
+		if(!gameDAO.getIsRunning()) {
 			return false;
 		}
 		
-		System.out.println("Is night: " + game.isNight());
-		if (killer.isWerewolf() && !victim.isWerewolf() && !victim.isDead() && game.isNight())
+		System.out.println("Is night: " + gameDAO.isNight());
+		if (killer.isWerewolf() && !victim.isWerewolf() && !victim.isDead() && gameDAO.isNight())
 		{
 			return true;
 		}
@@ -75,7 +67,7 @@ public class GameService {
 	
 	public void setKill (Kill kill)
 	{
-		if(game.getIsRunning()) {
+		if(gameDAO.getIsRunning()) {
 			killsDAO.setKill(kill);
 			try {
 				playerDAO.setDead(playerDAO.getPlayerByID(kill.getVictimID()));
@@ -91,11 +83,11 @@ public class GameService {
 		return user.isAdmin();
 	}
 	
-	public void newGame(int dayNightFreq)
+	public void newgameDAO(Game game)
 	{
 		killsDAO.reset();
 		playerDAO.reset();
-		game = new Game(dayNightFreq, new Date());
+		gameDAO.createGame(game);
 
 		List <Player> players = new ArrayList<>();
 		//List <MyUser> users = userDAO.getAllUsers();
@@ -113,37 +105,47 @@ public class GameService {
 		Collections.shuffle(players, new Random(System.currentTimeMillis()));
 		int werewolfindex = (int) (players.size() * .3f);
 		
-		for (Player gamePlayer : players)
+		for (Player gameDAOPlayer : players)
 		{
 			if (werewolfindex>0) {
-				gamePlayer.setWerewolf(true);
+				gameDAOPlayer.setWerewolf(true);
 				werewolfindex--;
 			}
 			else {
-				gamePlayer.setWerewolf(false);
+				gameDAOPlayer.setWerewolf(false);
 			}
 		}
 	}
 
 	public void vote(Player player, Player votee) {
-		if(game.getIsRunning()) {
+		if(gameDAO.getIsRunning()) {
 			playerDAO.vote(player, votee);
 		}		
 	}
 	
 	public void checkGame()
 	{
-		if (game == null) {}
+		if (gameDAO == null) {}
 		
-		else if (!game.getIsRunning()) {}
+		else if (!gameDAO.getIsRunning()) {}
 		
 		else if ((playerDAO.getAllWerewolves().size() == 0) ||  
 				(playerDAO.getAllWerewolves().size() > playerDAO.getAllTownspeople().size()))
 		{
-			game.setIsRunning(false);
+			gameDAO.endGame();
 		}
 		//TODO add another else if that checks if its time to vote
 		//& also if it's time to collect votes.
 		// must vote off person who is voted most
+	}
+	
+	public void addPlayer(Player player)
+	{
+		playerDAO.createPlayer(player);
+	}
+	
+	public void addUser (User user)
+	{
+		userDAO.createUser(user);
 	}
 }

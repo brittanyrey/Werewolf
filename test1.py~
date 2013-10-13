@@ -12,9 +12,9 @@ print(r.text)
 #New Game
 payload = {'player': {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95, 
 "userID" : "brittany", "isWerewolf" : True} , 'daynightFreq' : 1}
-#requests.post('http://localhost:8080/werewolf/admin/newGame', data = payload)
+requests.post('http://localhost:8080/admin/newGame', data = payload)
 print("new game started")
-
+'''
 #Players Alive
 r = requests.get('http://localhost:8080/werewolf/players/alive', 
 			auth=HTTPBasicAuth(username, password))
@@ -49,4 +49,4 @@ payload = {'player' : {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95,
 "userID" : "sharon", "isWerewolf" : False}}
 requests.post('http://localhost:8080/werewolf/players/vote', data = payload, 
 			auth=HTTPBasicAuth(username, password))
-print("Vote cast")
+print("Vote cast")'''

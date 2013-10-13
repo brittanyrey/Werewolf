@@ -1,9 +1,7 @@
 package edu.wm.werewolf.dao;
 
-import java.awt.print.Printable;
 import java.util.List;
 
-import edu.wm.werewolf.domain.Player;
 import edu.wm.werewolf.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +10,6 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-
-import com.mongodb.MongoClient;
 
 @Document(collection = "users")
 public class MongoUserDao implements IUserDAO{

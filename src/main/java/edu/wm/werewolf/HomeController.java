@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import edu.wm.werewolf.domain.GPSLocation;
 import edu.wm.werewolf.domain.Kill;
 import edu.wm.werewolf.domain.Player;
+import edu.wm.werewolf.domain.User;
 import edu.wm.werewolf.service.GameService;
 
 /**
@@ -93,7 +94,7 @@ public class HomeController {
 		gameService.updatePosition(principal.getName(), location);
 	}
 	
-	@RequestMapping(value = "players/vote", method=RequestMethod.POST)
+	@RequestMapping(value = "/players/vote", method=RequestMethod.POST)
 	public void vote(Player player, Player votee)
 	{
 		gameService.vote(player, votee);
@@ -103,5 +104,19 @@ public class HomeController {
 	public void CheckGameOperation () {
 		logger.info("Checking game operation...");
 		gameService.checkGame();
+	}
+	
+	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
+	public void setLocation(User user)
+	{
+		logger.info("Adding new user");
+		gameService.addUser(user);
+	}
+	
+	@RequestMapping(value = "/players/new", method=RequestMethod.POST)
+	public void setLocation(Player player)
+	{
+		logger.info("Adding new player");
+		gameService.addPlayer(player);
 	}
 }
