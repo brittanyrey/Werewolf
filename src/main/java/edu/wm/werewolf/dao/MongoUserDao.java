@@ -29,13 +29,9 @@ public class MongoUserDao implements IUserDAO{
 		User user = new User("123", "reynoso",  "brittany", "brittany", "yes", null, true);
 		createUser(user);
 		
-		Query findUserQuery = new Query(Criteria.where("id").is("123"));
-		List<User> usersfound = mongoOperation.find(findUserQuery, User.class );
-		if (usersfound.size()>0) {
-			return (User) usersfound.get(0);
-		}else {
-			return null;
-		}
+		Query findUserQuery = new Query(Criteria.where("id").is(id));
+		User usersfound = (User) mongoOperation.find(findUserQuery, User.class );
+		return usersfound;
 	}
 	
 	@Override
@@ -44,12 +40,8 @@ public class MongoUserDao implements IUserDAO{
 		createUser(user);
 		
 		Query findUserQuery = new Query(Criteria.where("username").is(name));
-		List<User> usersfound = mongoOperation.find(findUserQuery, User.class );
-		if (usersfound.size()>0) {
-			return (User) usersfound.get(0);
-		}else {
-			return null;
-		}
+		User usersfound = (User) mongoOperation.find(findUserQuery, User.class );
+		return usersfound;
 	}
 
 	@Override

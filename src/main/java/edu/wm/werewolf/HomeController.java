@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import edu.wm.werewolf.domain.GPSLocation;
+import edu.wm.werewolf.domain.Game;
 import edu.wm.werewolf.domain.Kill;
 import edu.wm.werewolf.domain.Player;
 import edu.wm.werewolf.domain.User;
@@ -46,11 +47,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "admin/newGame", method=RequestMethod.POST)
-	public void newGame(Player player, int daynightFreq)
+	public void newGame(Player player, Game game)
 	{
 		if (gameService.isAdmin(player)) 
 		{
-			gameService.newGame(daynightFreq);
+			gameService.newGame(game);
 			logger.info("New game");
 		}
 		else 

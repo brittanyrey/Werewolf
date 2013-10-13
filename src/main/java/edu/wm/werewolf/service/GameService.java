@@ -83,7 +83,7 @@ public class GameService {
 		return user.isAdmin();
 	}
 	
-	public void newgameDAO(Game game)
+	public void newGame(Game game)
 	{
 		killsDAO.reset();
 		playerDAO.reset();
@@ -105,14 +105,14 @@ public class GameService {
 		Collections.shuffle(players, new Random(System.currentTimeMillis()));
 		int werewolfindex = (int) (players.size() * .3f);
 		
-		for (Player gameDAOPlayer : players)
+		for (Player gamePlayer : players)
 		{
 			if (werewolfindex>0) {
-				gameDAOPlayer.setWerewolf(true);
+				gamePlayer.setWerewolf(true);
 				werewolfindex--;
 			}
 			else {
-				gameDAOPlayer.setWerewolf(false);
+				gamePlayer.setWerewolf(false);
 			}
 		}
 	}

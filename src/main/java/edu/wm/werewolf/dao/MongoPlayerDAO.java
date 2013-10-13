@@ -80,7 +80,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 				DBObject result = locCursor.next();
 				try {
 					if ((String)result.get("isDead") != "false") {
-						allPlayersNear.add((Player)(getPlayerByID((String)result.get("id"))));
+						allPlayersNear.add(getPlayerByID((String)result.get("id")));
 					}
 				} catch (NoPlayerFoundException e) {
 					// TODO Auto-generated catch block
