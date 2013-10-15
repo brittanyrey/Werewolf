@@ -102,22 +102,22 @@ public class HomeController {
 		logger.info("Vote cast");
 	}	
 	
-	public void CheckGameOperation () {
-		logger.info("Checking game operation...");
-		gameService.checkGame();
-	}
-	
 	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
-	public void setLocation(User user)
+	public void newUser(User user)
 	{
 		logger.info("Adding new user");
 		gameService.addUser(user);
 	}
 	
 	@RequestMapping(value = "/players/new", method=RequestMethod.POST)
-	public void setLocation(Player player)
+	public void newPlayer(Player player)
 	{
 		logger.info("Adding new player");
 		gameService.addPlayer(player);
+	}
+	
+	public void CheckGameOperation () {
+		logger.info("Checking game operation...");
+		gameService.checkGame();
 	}
 }
