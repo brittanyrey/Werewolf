@@ -12,6 +12,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 import edu.wm.werewolf.domain.Game;
 import edu.wm.werewolf.mongoDB.SpringMongoConfig;
@@ -44,8 +45,9 @@ public class MongoGameDAO implements IGameDAO{
 	@Override
 	public boolean getIsRunning() {
 		DBCollection table = db.getCollection("game");
-		BasicDBObject object =  (BasicDBObject) table.findOne();
-		System.out.println(object);
+		DBCursor cursor =   table.find();
+		DBObject object = cursor.next();
+		System.out.println(cursor + " " + object);
 		return (boolean) object.get("isRunning");
 	}
 
