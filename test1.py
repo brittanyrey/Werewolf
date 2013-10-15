@@ -14,7 +14,7 @@ payload = {'player': {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95,
 "userID" : "brittany", "isWerewolf" : True} , 'daynightFreq' : 1}
 requests.post('http://mighty-sea-1005.herokuapp.com/admin/newGame', data = payload)
 print("new game started")
-'''
+
 #Players Alive
 r = requests.get('http://mighty-sea-1005.herokuapp.com/players/alive', 
 			auth=HTTPBasicAuth(username, password))
@@ -49,4 +49,4 @@ payload = {'player' : {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95,
 "userID" : "sharon", "isWerewolf" : False}}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
 			auth=HTTPBasicAuth(username, password))
-print("Vote cast")'''
+print("Vote cast")

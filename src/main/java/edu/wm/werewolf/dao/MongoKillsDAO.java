@@ -2,6 +2,7 @@ package edu.wm.werewolf.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,9 +10,11 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 import edu.wm.werewolf.domain.Kill;
 import edu.wm.werewolf.domain.Player;
+import edu.wm.werewolf.domain.User;
 import edu.wm.werewolf.mongoDB.SpringMongoConfig;
 
 //@Document(collection = "players")
@@ -46,7 +49,11 @@ public class MongoKillsDAO implements IKillsDAO {
 		List <Kill> allKills = new ArrayList<Kill>();
 		while (cursor.hasNext())
 		{
-			allKills.add((Kill) cursor.next());
+			DBObject kill = cursor.next();
+			Kill killItem = new Kill((String)kill.get("killer"), (String)kill.get("victim"),
+					(Date)kill.get("time"), (double)kill.get("lat"), (double)kill.get("lng"));
+		
+			allKills.add(killItem);
 		}
 		return allKills;
 	}

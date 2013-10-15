@@ -17,6 +17,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 //@Document(collection = "users")
 public class MongoUserDao implements IUserDAO{
@@ -36,6 +37,7 @@ public class MongoUserDao implements IUserDAO{
 		documentDetail.put("score", user.getScore());
 		documentDetail.put("image", user.getImageURL());
 		documentDetail.put("username", user.getUsername());
+		documentDetail.put("isAdmin", user.isAdmin());
 		table.insert(documentDetail);
 	}
 
@@ -47,7 +49,11 @@ public class MongoUserDao implements IUserDAO{
 		User user = null;
 		while (cursor.hasNext())
 		{
-			user = (User) cursor.next();
+			DBObject userObject = cursor.next();
+			user = new User((String)userObject.get("id"), (String)userObject.get("firstName"),
+					(String)userObject.get("lastName"), (String)userObject.get("username"), (String)userObject.get("password"),
+					(String)userObject.get("image"), (boolean)userObject.get("isAdmin"));
+		
 		}
 		return user;
 	}
@@ -60,7 +66,11 @@ public class MongoUserDao implements IUserDAO{
 		User user = null;
 		while (cursor.hasNext())
 		{
-			user = (User) cursor.next();
+			DBObject userObject = cursor.next();
+			user = new User((String)userObject.get("id"), (String)userObject.get("firstName"),
+				(String)userObject.get("lastName"), (String)userObject.get("username"), (String)userObject.get("password"),
+				(String)userObject.get("image"), (boolean)userObject.get("isAdmin"));
+	
 		}
 		return user;
 	}
@@ -72,7 +82,13 @@ public class MongoUserDao implements IUserDAO{
 		List <User> users = new ArrayList<>();
 		while (cursor.hasNext())
 		{
-			users.add((User)cursor.next());
+			DBObject userObject = cursor.next();
+			User user = new User((String)userObject.get("id"), (String)userObject.get("firstName"),
+					(String)userObject.get("lastName"), (String)userObject.get("username"), (String)userObject.get("password"),
+					(String)userObject.get("image"), (boolean)userObject.get("isAdmin"));
+		
+			
+			users.add(user);
 		}
 		return users;
 	}

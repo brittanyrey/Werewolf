@@ -11,6 +11,8 @@ public class User {
 	private int score;
 	private boolean isAdmin;
 	
+	public User() {}
+	
 	public User(String id, String firstName, String lastName, String username,
 			String hashedPassword, String imageURL, boolean isAdmin) {
 		super();

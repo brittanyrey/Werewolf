@@ -59,7 +59,11 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		List <Player> players = new ArrayList<>();
 		while (cursor.hasNext())
 		{
-			players.add((Player)cursor.next());
+			DBObject player = cursor.next();
+			Player alivePlayer = new Player((String)player.get("id"), (boolean)player.get("isDead"),
+					(float)player.get("lat"), (float)player.get("lng"), (String)player.get("userID"),
+					(boolean)player.get("isWerewolf"));
+			players.add(alivePlayer);
 		}
 		return players;
 	}
@@ -93,12 +97,15 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		DBCollection table = db.getCollection("players");
 		BasicDBObject query = new BasicDBObject("id", id);
 		DBCursor cursor = table.find(query);
-		Player player = null;
+		Player playerObject = null;
 		while (cursor.hasNext())
 		{
-			player = (Player) cursor.next();
+			DBObject player = cursor.next();
+			playerObject = new Player((String)player.get("id"), (boolean)player.get("isDead"),
+					(float)player.get("lat"), (float)player.get("lng"), (String)player.get("userID"),
+					(boolean)player.get("isWerewolf"));
 		}
-		return player;	
+		return playerObject;	
 	}
 
 	//TODO fix this
@@ -158,7 +165,11 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		List <Player> players = new ArrayList<>();
 		while (cursor.hasNext())
 		{
-			players.add((Player)cursor.next());
+			DBObject player = cursor.next();
+			Player werewolves = new Player((String)player.get("id"), (boolean)player.get("isDead"),
+					(float)player.get("lat"), (float)player.get("lng"), (String)player.get("userID"),
+					(boolean)player.get("isWerewolf"));
+			players.add(werewolves);
 		}
 		return players;
 	}
@@ -171,7 +182,11 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		List <Player> players = new ArrayList<>();
 		while (cursor.hasNext())
 		{
-			players.add((Player)cursor.next());
+			DBObject player = cursor.next();
+			Player townies = new Player((String)player.get("id"), (boolean)player.get("isDead"),
+					(float)player.get("lat"), (float)player.get("lng"), (String)player.get("userID"),
+					(boolean)player.get("isWerewolf"));
+			players.add(townies);
 		}
 		return players;
 	}
