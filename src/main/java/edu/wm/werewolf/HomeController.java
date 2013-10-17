@@ -47,9 +47,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
-	public void newUser(@RequestParam("user") User user)
+	public void newUser(@ModelAttribute User user)
 	{
-		logger.info("Adding new user : " + user.getFirstName() + user.getHashedPassword() + user.getId()
+		logger.info("Adding new user : " + (user == null) + user.getFirstName() + user.getHashedPassword() + user.getId()
 				+user.getLastName());
 		gameService.addUser(user);
 	}
