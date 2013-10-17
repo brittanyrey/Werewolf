@@ -69,4 +69,11 @@ public class MongoGameDAO implements IGameDAO{
 		BasicDBObject searchQuery = (BasicDBObject) table.findOne();
 		table.update(searchQuery, newDocument);
 	}
+
+	@Override
+	public void reset() {
+		DBCollection table = db.getCollection("game");
+		table.drop();
+		
+	}
 }

@@ -87,6 +87,7 @@ public class GameService {
 	{
 		killsDAO.reset();
 		playerDAO.reset();
+		gameDAO.reset();
 		
 		Game game = new Game(dayNightFreq); 
 		gameDAO.createGame(game);
@@ -106,6 +107,9 @@ public class GameService {
 		
 		Collections.shuffle(players, new Random(System.currentTimeMillis()));
 		int werewolfindex = (int) (players.size() * .3f);
+		if (werewolfindex == 0) {
+			werewolfindex = 1;
+		}
 		
 		for (Player gamePlayer : players)
 		{

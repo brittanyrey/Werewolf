@@ -35,7 +35,7 @@ requests.post('http://mighty-sea-1005.herokuapp.com/admin/newGame', data = paylo
 			auth=HTTPBasicAuth(username, password))
 print("new game started")
 
-
+'''
 #Players Alive
 r = requests.get('http://mighty-sea-1005.herokuapp.com/players/alive', 
 			auth=HTTPBasicAuth(username, password))
