@@ -27,8 +27,10 @@ public class MongoUserDao implements IUserDAO{
 	@Autowired DB db;
 		
 	@Override
-	public void createUser(User user) {
+	public void createUser(User user) 
+	{
 		DBCollection table = db.getCollection("user");
+		table.drop();
 		BasicDBObject documentDetail = new BasicDBObject();
 		documentDetail.put("firstName", user.getFirstName());
 		documentDetail.put("lastName", user.getLastName());
