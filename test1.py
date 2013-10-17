@@ -10,9 +10,9 @@ r = requests.get('http://mighty-sea-1005.herokuapp.com/',
 print(r.text)
 
 #Add User
-payload = {'user': {'id' : '3393', "firstName" : "Brittany", 
+payload = {'id' : '3393', "firstName" : "Brittany", 
 "lastName" : "Reynoso", "username" : "brittanyR", "hashedPassword" : "yes", 
-"imageURL" : "http:...", "isAdmin" : True}}
+"imageURL" : "http:...", "isAdmin" : True}
 requests.post('http://mighty-sea-1005.herokuapp.com/addUser', 
 	data = payload, auth=HTTPBasicAuth(username, password))
 '''
