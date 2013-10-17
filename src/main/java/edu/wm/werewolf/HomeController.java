@@ -47,7 +47,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
-	public void newUser(User user)
+	public void newUser(@ModelAttribute("user") User user)
 	{
 		logger.info("Adding new user : " + user.getFirstName() + user.getHashedPassword() + user.getId()
 				+user.getLastName());

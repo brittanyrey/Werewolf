@@ -1,4 +1,5 @@
 import requests
+import json
 from requests.auth import HTTPBasicAuth
 
 username = "brittany"
@@ -13,8 +14,8 @@ print(r.text)
 payload = {'user': {'id' : '3393', "firstName" : "Brittany", 
 "lastName" : "Reynoso", "username" : "brittanyR", "password" : "yes", 
 "imageUrl" : "http:...", "isAdmin" : True}}
-requests.post('http://mighty-sea-1005.herokuapp.com/addUser', data = payload, 
-			auth=HTTPBasicAuth(username, password))
+requests.post('http://mighty-sea-1005.herokuapp.com/addUser', 
+	data = json.dumps(payload), auth=HTTPBasicAuth(username, password))
 
 payload = {'user': {'id' : '555', "firstName" : "John", 
 "lastName" : "Doe", "username" : "JD93", "password" : "yes", 
