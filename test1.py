@@ -15,28 +15,27 @@ payload = {'id' : '3393', "firstName" : "Brittany",
 "imageURL" : "http:...", "isAdmin" : True}
 requests.post('http://mighty-sea-1005.herokuapp.com/addUser', 
 	data = payload, auth=HTTPBasicAuth(username, password))
-'''
-payload = {'user': {'id' : '555', "firstName" : "John", 
+
+payload = {'id' : '555', "firstName" : "John", 
 "lastName" : "Doe", "username" : "JD93", "password" : "yes", 
-"imageUrl" : "http:...", "isAdmin" : False}}
+"imageUrl" : "http:...", "isAdmin" : False}
 requests.post('http://mighty-sea-1005.herokuapp.com/addUser', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
-payload = {'user': {'id' : '900', "firstName" : "Jane", 
+payload = {'id' : '900', "firstName" : "Jane", 
 "lastName" : "Smith", "username" : "Jane900", "password" : "yes", 
-"imageUrl" : "http:...", "isAdmin" : False}}
+"imageUrl" : "http:...", "isAdmin" : False}
 requests.post('http://mighty-sea-1005.herokuapp.com/addUser', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 print ("added 3 users")
 
 #New Game
-payload = {'player': {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95, 
-"userID" : "3393", "isWerewolf" : True} , "dayNightFreq" : 1}
+payload = {'id' : '3393', "dayNightFreq" : 1}
 requests.post('http://mighty-sea-1005.herokuapp.com/admin/newGame', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 print("new game started")
 
-
+'''
 #Players Alive
 r = requests.get('http://mighty-sea-1005.herokuapp.com/players/alive', 
 			auth=HTTPBasicAuth(username, password))

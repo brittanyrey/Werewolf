@@ -77,9 +77,9 @@ public class GameService {
 		}
 	}
 	
-	public boolean isAdmin(Player player)
+	public boolean isAdmin(String id)
 	{
-		User user = userDAO.getUserbyID(player.getId());
+		User user = userDAO.getUserbyID(id);
 		return user.isAdmin();
 	}
 	

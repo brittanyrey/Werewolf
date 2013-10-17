@@ -30,7 +30,6 @@ public class MongoUserDao implements IUserDAO{
 	public void createUser(User user) 
 	{
 		DBCollection table = db.getCollection("user");
-		table.drop();
 		BasicDBObject documentDetail = new BasicDBObject();
 		documentDetail.put("firstName", user.getFirstName());
 		documentDetail.put("lastName", user.getLastName());

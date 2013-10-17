@@ -55,12 +55,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "admin/newGame", method=RequestMethod.POST)
-	public void newGame(Player player, int dayNightFreq)
+	public void newGame(String id, int dayNightFreq)
 	{
-		if (gameService.isAdmin(player)) 
+		if (gameService.isAdmin(id)) 
 		{
 			gameService.newGame(dayNightFreq);
-			logger.info("New game");
+			logger.info("New game started by: " + id );
 		}
 		else 
 		{
