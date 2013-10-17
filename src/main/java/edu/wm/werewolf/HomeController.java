@@ -105,7 +105,7 @@ public class HomeController {
 	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
 	public void newUser(User user)
 	{
-		logger.info("Adding new user");
+		logger.info("Adding new user : " + user.toString());
 		gameService.addUser(user);
 	}
 	

@@ -46,7 +46,7 @@ public class MongoGameDAO implements IGameDAO{
 	public boolean getIsRunning() {
 		DBCollection table = db.getCollection("game");
 		DBCursor cursor =   table.find();
-		DBObject object = cursor.next();
+		DBObject object = (cursor == null ? null : cursor.next());
 		System.out.println(cursor + " " + object);
 		return (boolean) object.get("isRunning");
 	}

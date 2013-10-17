@@ -10,10 +10,10 @@ public class Game {
 	private long timer;
 	private int millisecondsInAMin = 60000;
 	
-	public Game(int dayNightFreq, Date createdDate) {
+	public Game(int dayNightFreq) {
 		super();
 		this.dayNightFreq = dayNightFreq * millisecondsInAMin;
-		this.createdDate = createdDate;
+		this.createdDate = new Date();
 		this.isRunning = true;
 	}
 	public int getDayNightFreq() {
