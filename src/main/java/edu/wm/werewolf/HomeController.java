@@ -48,10 +48,10 @@ public class HomeController {
 	
 	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
 	public void newUser(String id, String firstName, String lastName, String username, 
-			String hashedPassword, String imageUrl, String isAdmin)
+			String hashedPassword, String imageURL, boolean isAdmin)
 	{
-		logger.info("Adding new user : " +  firstName + id + username+ hashedPassword );
-		//gameService.addUser(user);
+		logger.info("Adding new user : " +  username);
+		gameService.addUser(id, firstName, lastName, username, hashedPassword, imageURL, isAdmin);
 	}
 	
 	@RequestMapping(value = "admin/newGame", method=RequestMethod.POST)

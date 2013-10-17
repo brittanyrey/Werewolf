@@ -146,8 +146,10 @@ public class GameService {
 		playerDAO.createPlayer(player);
 	}
 	
-	public void addUser (User user)
+	public void addUser (String id, String firstName, String lastName, String username, 
+			String hashedPassword, String imageURL, Boolean isAdmin)
 	{
+		User user = new User(id, firstName, lastName, username, hashedPassword, imageURL, isAdmin);
 		userDAO.createUser(user);
 	}
 }
