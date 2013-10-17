@@ -83,10 +83,12 @@ public class GameService {
 		return user.isAdmin();
 	}
 	
-	public void newGame(Game game)
+	public void newGame(int dayNightFreq)
 	{
 		killsDAO.reset();
 		playerDAO.reset();
+		
+		Game game = new Game(dayNightFreq); 
 		gameDAO.createGame(game);
 
 		List <Player> players = new ArrayList<>();

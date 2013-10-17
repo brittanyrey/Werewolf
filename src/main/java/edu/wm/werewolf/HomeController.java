@@ -47,11 +47,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "admin/newGame", method=RequestMethod.POST)
-	public void newGame(Player player, Game game)
+	public void newGame(Player player, int dayNightFreq)
 	{
 		if (gameService.isAdmin(player)) 
 		{
-			gameService.newGame(game);
+			gameService.newGame(dayNightFreq);
 			logger.info("New game");
 		}
 		else 

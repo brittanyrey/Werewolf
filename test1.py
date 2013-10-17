@@ -31,7 +31,7 @@ print ("added 3 users")
 
 #New Game
 payload = {'player': {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95, 
-"userID" : "3393", "isWerewolf" : True} , 'game' : {"dayNightFreq" : 1}}
+"userID" : "3393", "isWerewolf" : True} , "dayNightFreq" : 1}
 requests.post('http://mighty-sea-1005.herokuapp.com/admin/newGame', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 print("new game started")
