@@ -13,9 +13,9 @@ print(r.text)
 payload = {'user': {'id' : '3393', "firstName" : "Brittany", 
 "lastName" : "Reynoso", "username" : "brittanyR", "password" : "yes", 
 "imageUrl" : "http:...", "isAdmin" : True}}
-requests.post('http://mighty-sea-1005.herokuapp.com/addUser', data = payload, 
-			auth=HTTPBasicAuth(username, password))
-
+requests.post('http://mighty-sea-1005.herokuapp.com/addUser', 
+	data = payload, auth=HTTPBasicAuth(username, password))
+'''
 payload = {'user': {'id' : '555', "firstName" : "John", 
 "lastName" : "Doe", "username" : "JD93", "password" : "yes", 
 "imageUrl" : "http:...", "isAdmin" : False}}
@@ -42,7 +42,6 @@ r = requests.get('http://mighty-sea-1005.herokuapp.com/players/alive',
 			auth=HTTPBasicAuth(username, password))
 print("players alive " + r.text)
 
-'''
 
 #Players Near
 payload = {'player': {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95, 
