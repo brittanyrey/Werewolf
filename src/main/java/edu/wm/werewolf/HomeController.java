@@ -46,6 +46,14 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
+	public void newUser(User user)
+	{
+		logger.info("Adding new user : " + user.getFirstName() + user.getHashedPassword() + user.getId()
+				+user.getLastName());
+		gameService.addUser(user);
+	}
+	
 	@RequestMapping(value = "admin/newGame", method=RequestMethod.POST)
 	public void newGame(Player player, int dayNightFreq)
 	{
@@ -101,13 +109,6 @@ public class HomeController {
 		gameService.vote(player, votee);
 		logger.info("Vote cast");
 	}	
-	
-	@RequestMapping(value = "/addUser", method=RequestMethod.POST)
-	public void newUser(User user)
-	{
-		logger.info("Adding new user : " + user.toString());
-		gameService.addUser(user);
-	}
 	
 	@RequestMapping(value = "/players/new", method=RequestMethod.POST)
 	public void newPlayer(Player player)
