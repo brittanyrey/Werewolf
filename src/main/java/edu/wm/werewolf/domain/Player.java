@@ -14,7 +14,7 @@ public class Player {
 	private String votedAgainst;
 	private Date lastUpdate;
 	
-	public Player(String id, boolean isDead, float lat, float lng,
+	public Player(String id, boolean isDead, double lat, double lng,
 			String userId, boolean isWerewolf) {
 		super();
 		this.id = id;

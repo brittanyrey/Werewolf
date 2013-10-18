@@ -61,7 +61,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		{
 			DBObject player = cursor.next();
 			Player alivePlayer = new Player((String)player.get("id"), (boolean)player.get("isDead"),
-					(float)player.get("lat"), (float)player.get("lng"), (String)player.get("userID"),
+					(double)player.get("lat"), (double)player.get("lng"), (String)player.get("userID"),
 					(boolean)player.get("isWerewolf"));
 			players.add(alivePlayer);
 		}
