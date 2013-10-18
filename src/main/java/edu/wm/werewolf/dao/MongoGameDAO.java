@@ -37,7 +37,7 @@ public class MongoGameDAO implements IGameDAO{
 		documentDetail.put("createdDate", game.getCreatedDate());
 		documentDetail.put("dayNightFrequency", game.getDayNightFreq());
 		documentDetail.put("isRunning", game.getIsRunning());
-		documentDetail.put("Timer", game.getTimer());
+		documentDetail.put("timer", game.getTimer());
 	 
 		table.insert(documentDetail);
 	}
@@ -74,6 +74,7 @@ public class MongoGameDAO implements IGameDAO{
 	public void reset() {
 		DBCollection table = db.getCollection("game");
 		table.drop();
-		
+		 table = db.getCollection("users");
+		table.drop();
 	}
 }

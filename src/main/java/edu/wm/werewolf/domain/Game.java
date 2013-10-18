@@ -15,6 +15,7 @@ public class Game {
 		this.dayNightFreq = dayNightFreq * millisecondsInAMin;
 		this.createdDate = new Date();
 		this.isRunning = true;
+		this.timer = 0;
 	}
 	public int getDayNightFreq() {
 		return dayNightFreq;
