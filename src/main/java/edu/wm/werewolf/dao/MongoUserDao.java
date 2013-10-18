@@ -30,18 +30,16 @@ public class MongoUserDao implements IUserDAO{
 	public void createUser(User user) 
 	{	
 		DBCollection table = db.getCollection("user");
-		table.drop();
-//		DBCollection table = db.getCollection("user");
-//		BasicDBObject documentDetail = new BasicDBObject();
-//		documentDetail.put("firstName", user.getFirstName());
-//		documentDetail.put("lastName", user.getLastName());
-//		documentDetail.put("password", user.getHashedPassword());
-//		documentDetail.put("id", user.getId());
-//		documentDetail.put("score", user.getScore());
-//		documentDetail.put("image", user.getImageURL());
-//		documentDetail.put("username", user.getUsername());
-//		documentDetail.put("isAdmin", user.isAdmin());
-//		table.insert(documentDetail);
+		BasicDBObject documentDetail = new BasicDBObject();
+		documentDetail.put("firstName", user.getFirstName());
+		documentDetail.put("lastName", user.getLastName());
+		documentDetail.put("password", user.getHashedPassword());
+		documentDetail.put("id", user.getId());
+		documentDetail.put("score", user.getScore());
+		documentDetail.put("image", user.getImageURL());
+		documentDetail.put("username", user.getUsername());
+		documentDetail.put("isAdmin", user.isAdmin());
+		table.insert(documentDetail);
 	}
 
 	@Override
