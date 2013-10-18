@@ -29,7 +29,7 @@ public class MongoUserDao implements IUserDAO{
 	@Override
 	public void createUser(User user) 
 	{
-		DBCollection table = db.getCollection("users");
+		DBCollection table = db.getCollection("user");
 		table.drop();
 		
 //		DBCollection table = db.getCollection("user");

@@ -108,13 +108,6 @@ public class HomeController {
 	{
 		gameService.vote(player, votee);
 		logger.info("Vote cast");
-	}	
-	
-	@RequestMapping(value = "/players/new", method=RequestMethod.POST)
-	public void newPlayer(Player player)
-	{
-		logger.info("Adding new player");
-		gameService.addPlayer(player);
 	}
 	
 	public void CheckGameOperation () {
