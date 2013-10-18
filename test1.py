@@ -35,13 +35,13 @@ requests.post('http://mighty-sea-1005.herokuapp.com/admin/newGame', data = paylo
 			auth=HTTPBasicAuth(username, password))
 print("new game started")
 
-'''
+
 #Players Alive
 r = requests.get('http://mighty-sea-1005.herokuapp.com/players/alive', 
 			auth=HTTPBasicAuth(username, password))
 print("players alive " + r.text)
 
-
+'''
 #Players Near
 payload = {'player': {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95, 
 "userID" : "brittany", "isWerewolf" : True} , 'daynightFreq' : 12}
