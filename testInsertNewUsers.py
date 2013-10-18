@@ -60,7 +60,7 @@ payload = {'id' : '888', "firstName" : "Gene",
 requests.post('http://mighty-sea-1005.herokuapp.com/addUser', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
-payload = {'id' : '3393', "firstName" : "Heather", 
+payload = {'id' : '1234', "firstName" : "Heather", 
 "lastName" : "Gurn", "username" : "HFeathers", "hashedPassword" : "yes", 
 "imageURL" : "http:...", "isAdmin" : False}
 requests.post('http://mighty-sea-1005.herokuapp.com/addUser', 

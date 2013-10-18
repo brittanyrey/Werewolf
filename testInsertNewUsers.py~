@@ -1,3 +1,5 @@
+############# insert new users to the database #############
+
 import requests
 from requests.auth import HTTPBasicAuth
 
