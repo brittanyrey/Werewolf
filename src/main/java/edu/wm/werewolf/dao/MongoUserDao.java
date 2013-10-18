@@ -31,6 +31,8 @@ public class MongoUserDao implements IUserDAO{
 	{
 		DBCollection table = db.getCollection("user");
 		table.drop();
+		table = db.getCollection("players");
+		table.drop();
 		
 //		DBCollection table = db.getCollection("user");
 //		BasicDBObject documentDetail = new BasicDBObject();
