@@ -74,7 +74,5 @@ public class MongoGameDAO implements IGameDAO{
 	public void reset() {
 		DBCollection table = db.getCollection("game");
 		table.drop();
-		 table = db.getCollection("users");
-		table.drop();
 	}
 }
