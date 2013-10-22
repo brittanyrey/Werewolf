@@ -92,7 +92,6 @@ public class GameService {
 		Game game = new Game(dayNightFreq); 
 		gameDAO.createGame(game);
 
-		List <Player> players = new ArrayList<>();
 		//List <MyUser> users = userDAO.getAllUsers();
 		List <User> users = userDAO.getAllUsers();
 		
@@ -102,16 +101,16 @@ public class GameService {
 			Player p = new Player();
 			p.setUserId(u.getId());
 			playerDAO.createPlayer(p);
-			players.add(p);
 		}
 		
-		Collections.shuffle(players, new Random(System.currentTimeMillis()));
-		int werewolfindex = (int) (players.size() * .3f);
+		List <Player> allPlayers = playerDAO.getAllAlive();
+		Collections.shuffle(allPlayers, new Random(System.currentTimeMillis()));
+		int werewolfindex = (int) (allPlayers.size() * .3f);
 		if (werewolfindex == 0) {
 			werewolfindex = 1;
 		}
 		
-		for (Player gamePlayer : players)
+		for (Player gamePlayer : allPlayers)
 		{
 			if (werewolfindex>0) {
 				gamePlayer.setWerewolf(true);
