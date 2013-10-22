@@ -90,6 +90,7 @@ public class GameService {
 		gameDAO.reset();
 		
 		Game game = new Game(dayNightFreq); 
+		System.out.println(game.getDayNightFreq()+ " "+ game.getCreatedDate()+" "+ game.getIsRunning());
 		gameDAO.createGame(game);
 
 		//List <MyUser> users = userDAO.getAllUsers();
