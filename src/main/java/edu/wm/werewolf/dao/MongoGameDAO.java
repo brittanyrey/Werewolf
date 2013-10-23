@@ -32,7 +32,7 @@ public class MongoGameDAO implements IGameDAO{
 	
 	@Override
 	public void createGame(Game game) {
-		DBCollection table = db.getCollection("game");
+		DBCollection table = db.getCollection("game");		
 		BasicDBObject documentDetail = new BasicDBObject();
 		documentDetail.put("createdDate", game.getCreatedDate());
 		documentDetail.put("dayNightFrequency", game.getDayNightFreq());

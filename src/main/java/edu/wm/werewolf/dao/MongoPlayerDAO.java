@@ -80,6 +80,18 @@ public class MongoPlayerDAO implements IPlayerDAO {
 	}
 	
 	@Override
+	public void setWerewolfStatus (String userID, boolean isWerewolf)
+	{
+		DBCollection table = db.getCollection("players");
+		
+		BasicDBObject newDocument = new BasicDBObject();
+		newDocument.put("isWerewolf", isWerewolf);
+		
+		BasicDBObject searchQuery = new BasicDBObject().append("userID", userID);
+		table.update(searchQuery, newDocument);
+	}
+	
+	@Override
 	public void setPlayerLocation (String id, GPSLocation loc) {
 		DBCollection table = db.getCollection("players");
 		

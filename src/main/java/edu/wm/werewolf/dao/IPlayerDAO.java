@@ -18,5 +18,6 @@ public interface IPlayerDAO {
 	void vote(Player player, Player votee);
 	List<Player> getAllWerewolves();
 	List<Player> getAllTownspeople();
+	void setWerewolfStatus(String userID, boolean isWerewolf);
 	
 }
