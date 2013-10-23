@@ -96,14 +96,14 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping(value = "/players/location", method=RequestMethod.POST)
-	public void setLocation(float lat, float lng, String userID)
+	@RequestMapping(value = "players/location", method=RequestMethod.POST)
+	public void setLocation(double lat, double lng, String userID)
 	{
 		logger.info("Setting location");
 		gameService.updatePosition(userID, lat, lng);
 	}
 	
-	@RequestMapping(value = "/players/vote", method=RequestMethod.POST)
+	@RequestMapping(value = "players/vote", method=RequestMethod.POST)
 	public void vote(String voterID, String suspectID)
 	{
 		gameService.vote(voterID, suspectID);

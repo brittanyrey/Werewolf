@@ -4,7 +4,6 @@ from requests.auth import HTTPBasicAuth
 username = "brittany"
 password = "yes"
 
-
 #Update location
 payload = {"userID": "3393", 'lat': 41, 'lng':80}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/location', data = payload, 
@@ -52,7 +51,7 @@ payload = {"userID": "900", 'lat': 40.12, 'lng':80.87}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/location', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
-print("location")
+print("locations set")
 
 
 #Players Alive

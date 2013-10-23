@@ -46,6 +46,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		documentDetail.put("id", player.getId());
 		documentDetail.put("lat", player.getLat());
 		documentDetail.put("lng", player.getLng());
+		documentDetail.put("lastUpdate", player.getLastUpdate());
 		documentDetail.put("userID", player.getUserId());
 		documentDetail.put("isDead", player.isDead());
 		documentDetail.put("isWerewolf", player.isWerewolf());
