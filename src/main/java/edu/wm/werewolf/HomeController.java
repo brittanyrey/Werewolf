@@ -97,7 +97,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/players/location", method=RequestMethod.POST)
-	public void setPlayerLocation(double lat, double lng, String userID)
+	public void setPlayerLocation(String userID, double lat, double lng)
 	{
 		logger.info("Setting location");
 		gameService.updatePosition(userID, lat, lng);
