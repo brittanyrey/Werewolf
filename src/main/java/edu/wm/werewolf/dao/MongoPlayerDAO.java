@@ -73,7 +73,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		DBCollection table = db.getCollection("players");
 		
 		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put("isDead", true);
+		newDocument.append("$set", new BasicDBObject().append("isDead", true));
 		
 		BasicDBObject searchQuery = new BasicDBObject().append("id", p.getId());
 		table.update(searchQuery, newDocument);
@@ -85,22 +85,25 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		DBCollection table = db.getCollection("players");
 		
 		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put("isWerewolf", isWerewolf);
+		newDocument.append("$set", new BasicDBObject().append("isWerewolf", isWerewolf));
 		
 		BasicDBObject searchQuery = new BasicDBObject().append("userID", userID);
 		table.update(searchQuery, newDocument);
 	}
 	
 	@Override
-	public void setPlayerLocation (String id, GPSLocation loc) {
+	public void setPlayerLocation (String userID, GPSLocation loc) {
 		DBCollection table = db.getCollection("players");
 		
+		BasicDBObject locObject = new BasicDBObject();
+		locObject.put("lat", loc.getLatitude());
+		locObject.put("lng", loc.getLongitude());
+		locObject.put("lastUpdate", loc.getTime());
+
 		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put("lat", loc.getLatitude());
-		newDocument.put("lng", loc.getLongitude());
-		newDocument.put("lastUpdate", loc.getTime());
+		newDocument.append("$set", locObject);
 		
-		BasicDBObject searchQuery = new BasicDBObject().append("id", id);
+		BasicDBObject searchQuery = new BasicDBObject().append("userID", userID);
 		table.update(searchQuery, newDocument);
 	}
 
@@ -163,7 +166,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		DBCollection table = db.getCollection("players");
 		
 		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put("votedAgainst", player.getVotedAgainst());
+		newDocument.append("$set", new BasicDBObject().append("votedAgainst", player.getVotedAgainst()));
 		
 		BasicDBObject searchQuery = new BasicDBObject().append("id", player.getId());
 		table.update(searchQuery, newDocument);

@@ -64,7 +64,7 @@ public class MongoGameDAO implements IGameDAO{
 		DBCollection table = db.getCollection("game");
 		
 		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put("isRunning", false);
+		newDocument.append("$set", new BasicDBObject().append("isRunning", false));
 		
 		BasicDBObject searchQuery = (BasicDBObject) table.findOne();
 		table.update(searchQuery, newDocument);
