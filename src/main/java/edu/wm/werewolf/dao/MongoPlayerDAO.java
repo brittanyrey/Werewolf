@@ -27,15 +27,17 @@ import edu.wm.werewolf.exceptions.NoPlayerFoundException;
 import edu.wm.werewolf.mongoDB.SpringMongoConfig;
 
 public class MongoPlayerDAO implements IPlayerDAO {
-	
-	@Autowired DB db;
-	
-//	private MongoOperations mongoOperation;
-//	
-//	public MongoPlayerDAO() throws UnknownHostException {
-//	    ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
-//	    mongoOperation = (MongoOperations)ctx.getBean("mongoTemplate");
-//	}
+
+	@Autowired
+	DB db;
+
+	// private MongoOperations mongoOperation;
+	//
+	// public MongoPlayerDAO() throws UnknownHostException {
+	// ApplicationContext ctx = new
+	// AnnotationConfigApplicationContext(SpringMongoConfig.class);
+	// mongoOperation = (MongoOperations)ctx.getBean("mongoTemplate");
+	// }
 
 	@Override
 	public void createPlayer(Player player) {
@@ -47,22 +49,22 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		documentDetail.put("userID", player.getUserId());
 		documentDetail.put("isDead", player.isDead());
 		documentDetail.put("isWerewolf", player.isWerewolf());
-	 
+
 		table.insert(documentDetail);
 	}
-	
+
 	@Override
-	public List<Player> getAllAlive() {	
+	public List<Player> getAllAlive() {
 		DBCollection table = db.getCollection("players");
 		BasicDBObject query = new BasicDBObject("isDead", false);
 		DBCursor cursor = table.find(query);
-		List <Player> players = new ArrayList<>();
-		while (cursor.hasNext())
-		{
+		List<Player> players = new ArrayList<>();
+		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
-			Player alivePlayer = new Player((String)player.get("id"), (boolean)player.get("isDead"),
-					(double)player.get("lat"), (double)player.get("lng"), (String)player.get("userID"),
-					(boolean)player.get("isWerewolf"));
+			Player alivePlayer = new Player((String) player.get("id"),
+					(boolean) player.get("isDead"), (double) player.get("lat"),
+					(double) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isWerewolf"));
 			players.add(alivePlayer);
 		}
 		return players;
@@ -71,30 +73,31 @@ public class MongoPlayerDAO implements IPlayerDAO {
 	@Override
 	public void setDead(Player p) {
 		DBCollection table = db.getCollection("players");
-		
+
 		BasicDBObject newDocument = new BasicDBObject();
 		newDocument.append("$set", new BasicDBObject().append("isDead", true));
-		
+
 		BasicDBObject searchQuery = new BasicDBObject().append("id", p.getId());
 		table.update(searchQuery, newDocument);
 	}
-	
+
 	@Override
-	public void setWerewolfStatus (String userID, boolean isWerewolf)
-	{
+	public void setWerewolfStatus(String userID, boolean isWerewolf) {
 		DBCollection table = db.getCollection("players");
-		
+
 		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.append("$set", new BasicDBObject().append("isWerewolf", isWerewolf));
-		
-		BasicDBObject searchQuery = new BasicDBObject().append("userID", userID);
+		newDocument.append("$set",
+				new BasicDBObject().append("isWerewolf", isWerewolf));
+
+		BasicDBObject searchQuery = new BasicDBObject()
+				.append("userID", userID);
 		table.update(searchQuery, newDocument);
 	}
-	
+
 	@Override
-	public void setPlayerLocation (String userID, GPSLocation loc) {
+	public void setPlayerLocation(String userID, GPSLocation loc) {
 		DBCollection table = db.getCollection("players");
-		
+
 		BasicDBObject locObject = new BasicDBObject();
 		locObject.put("lat", loc.getLatitude());
 		locObject.put("lng", loc.getLongitude());
@@ -102,73 +105,75 @@ public class MongoPlayerDAO implements IPlayerDAO {
 
 		BasicDBObject newDocument = new BasicDBObject();
 		newDocument.append("$set", locObject);
-		
-		BasicDBObject searchQuery = new BasicDBObject().append("userID", userID);
+
+		BasicDBObject searchQuery = new BasicDBObject()
+				.append("userID", userID);
 		table.update(searchQuery, newDocument);
 	}
 
 	@Override
-	public Player getPlayerByID(String id) throws NoPlayerFoundException {
+	public Player getPlayerByUserID(String id) throws NoPlayerFoundException {
 		DBCollection table = db.getCollection("players");
-		BasicDBObject query = new BasicDBObject("id", id);
+		BasicDBObject query = new BasicDBObject("userID", id);
 		DBCursor cursor = table.find(query);
 		Player playerObject = null;
-		while (cursor.hasNext())
-		{
+		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
-			playerObject = new Player((String)player.get("id"), (boolean)player.get("isDead"),
-					(float)player.get("lat"), (float)player.get("lng"), (String)player.get("userID"),
-					(boolean)player.get("isWerewolf"));
+			playerObject = new Player((String) player.get("id"),
+					(boolean) player.get("isDead"), (float) player.get("lat"),
+					(float) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isWerewolf"));
 		}
-		return playerObject;	
+		return playerObject;
 	}
 
-	//TODO fix this
+	// TODO fix this
 	@Override
 	public List<Player> getAllNear(Player player) {
-		if (player.isWerewolf()) 
-		{
+		if (player.isWerewolf()) {
 			DBCollection table = db.getCollection("players");
-			List <Player> allPlayersNear = new ArrayList <Player>();
+			List<Player> allPlayersNear = new ArrayList<Player>();
 			BasicDBObject locQuery = new BasicDBObject();
-			locQuery.put("loc", new BasicDBObject("$near", new Double[]{player.getLng(), player.getLat()}));
-			DBCursor locCursor = table.find( locQuery );
-			
-			while (locCursor.hasNext())
-			{
+			locQuery.put("loc", new BasicDBObject("$near", new Double[] {
+					player.getLng(), player.getLat() }));
+			DBCursor locCursor = table.find(locQuery);
+
+			while (locCursor.hasNext()) {
 				DBObject result = locCursor.next();
 				try {
-					if ((String)result.get("isDead") != "false") {
-						allPlayersNear.add(getPlayerByID((String)result.get("id")));
+					if ((String) result.get("isDead") != "false") {
+						allPlayersNear.add(getPlayerByID((String) result
+								.get("id")));
 					}
 				} catch (NoPlayerFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}	
-			return allPlayersNear;	
-		}
-		else 
-		{
+			}
+			return allPlayersNear;
+		} else {
 			return null;
-		}	
+		}
 	}
-	
+
 	@Override
-	public void reset()
-	{
+	public void reset() {
 		DBCollection table = db.getCollection("players");
 		table.drop();
 	}
 
 	@Override
-	public void vote(Player player, Player votee) {
+	public void vote(String userID, String suspect){
+		
 		DBCollection table = db.getCollection("players");
-		
+
 		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.append("$set", new BasicDBObject().append("votedAgainst", player.getVotedAgainst()));
-		
-		BasicDBObject searchQuery = new BasicDBObject().append("id", player.getId());
+		newDocument.append(
+				"$set",
+				new BasicDBObject().append("votedAgainst",suspect));
+
+		BasicDBObject searchQuery = new BasicDBObject().append("userID",
+				userID);
 		table.update(searchQuery, newDocument);
 	}
 
@@ -177,13 +182,13 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		DBCollection table = db.getCollection("players");
 		BasicDBObject query = new BasicDBObject("isWerewolf", true);
 		DBCursor cursor = table.find(query);
-		List <Player> players = new ArrayList<>();
-		while (cursor.hasNext())
-		{
+		List<Player> players = new ArrayList<>();
+		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
-			Player werewolves = new Player((String)player.get("id"), (boolean)player.get("isDead"),
-					(float)player.get("lat"), (float)player.get("lng"), (String)player.get("userID"),
-					(boolean)player.get("isWerewolf"));
+			Player werewolves = new Player((String) player.get("id"),
+					(boolean) player.get("isDead"), (float) player.get("lat"),
+					(float) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isWerewolf"));
 			players.add(werewolves);
 		}
 		return players;
@@ -194,13 +199,13 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		DBCollection table = db.getCollection("players");
 		BasicDBObject query = new BasicDBObject("isWerewolf", false);
 		DBCursor cursor = table.find(query);
-		List <Player> players = new ArrayList<>();
-		while (cursor.hasNext())
-		{
+		List<Player> players = new ArrayList<>();
+		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
-			Player townies = new Player((String)player.get("id"), (boolean)player.get("isDead"),
-					(float)player.get("lat"), (float)player.get("lng"), (String)player.get("userID"),
-					(boolean)player.get("isWerewolf"));
+			Player townies = new Player((String) player.get("id"),
+					(boolean) player.get("isDead"), (float) player.get("lat"),
+					(float) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isWerewolf"));
 			players.add(townies);
 		}
 		return players;

@@ -12,5 +12,7 @@ There is a testInsertNewUsers.py which will add 12 new distinct users to the gam
 There is a testNewGame.py which will create a new game and create new player objects 
 for each of the users that were created. In addition, this script will check that all of the users are
 properly created by calling the playersAlive function which will return all of the player objects to the client.
-
+There is a testUpdateLocation.py which will update the location of all of the users.
+There is a testVote.py which will simulate a vote.
+ 
 The service is deployed at http://mighty-sea-1005.herokuapp.com
