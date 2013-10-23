@@ -70,7 +70,7 @@ public class GameService {
 		if (gameDAO.getIsRunning()) {
 			killsDAO.setKill(kill);
 			try {
-				playerDAO.setDead(playerDAO.getPlayerByID(kill.getVictimID()));
+				playerDAO.setDead(playerDAO.getPlayerByUserID(kill.getVictimID()));
 			} catch (NoPlayerFoundException e) {
 				e.printStackTrace();
 			}
