@@ -121,8 +121,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
 			playerObject = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (float) player.get("lat"),
-					(float) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isDead"), (double) player.get("lat"),
+					(double) player.get("lng"), (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 		}
 		return playerObject;
@@ -187,8 +187,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
 			Player werewolves = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (float) player.get("lat"),
-					(float) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isDead"), (double) player.get("lat"),
+					(double) player.get("lng"), (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			players.add(werewolves);
 		}
@@ -204,8 +204,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
 			Player townies = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (float) player.get("lat"),
-					(float) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isDead"), (double) player.get("lat"),
+					(double) player.get("lng"), (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			players.add(townies);
 		}
