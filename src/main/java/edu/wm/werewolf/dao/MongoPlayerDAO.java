@@ -50,6 +50,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		documentDetail.put("userID", player.getUserId());
 		documentDetail.put("isDead", player.isDead());
 		documentDetail.put("isWerewolf", player.isWerewolf());
+		documentDetail.put("votedAgainst", player.getVotedAgainst());
 
 		table.insert(documentDetail);
 	}
