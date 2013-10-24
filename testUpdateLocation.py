@@ -13,7 +13,7 @@ payload = {"userID": "555", 'lat': 40.45678, 'lng':80.1}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/location', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
-payload = {"userID": "900", 'lat': 48, 'lng':82.6789}
+payload = {"userID": "942", 'lat': 48, 'lng':82.6789}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/location', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 

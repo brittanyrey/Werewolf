@@ -98,7 +98,7 @@ payload = {"userID": "555", 'lat': 40.45678, 'lng':80.1}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/location', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
-payload = {"userID": "900", 'lat': 48, 'lng':82.6789}
+payload = {"userID": "942", 'lat': 48, 'lng':82.6789}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/location', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
@@ -142,11 +142,59 @@ r = requests.get('http://mighty-sea-1005.herokuapp.com/players/alive',
 			auth=HTTPBasicAuth(username, password))
 print("players alive " + r.text)
 
-#Vote
-payload = {"voterID" : "555", "suspectID" : "666"}
+#Update vote
+payload = {"voterID": "3393", 'suspectID': "666"}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
 			auth=HTTPBasicAuth(username, password))
-print("Vote cast")
+
+payload = {"voterID": "555", 'suspectID': "666"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+
+payload = {"voterID": "942", 'suspectID': "666"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+
+payload = {"voterID": "111", 'suspectID': "666"}
+requests.post('http://mighty-sea-1005.herokuapp.com/pla"yers/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+
+payload = {"voterID": "222", 'suspectID': "111"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+
+payload = {"voterID": "444", 'suspectID': "222"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+
+payload = {"voterID": "666", 'suspectID': "777"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+
+payload = {"voterID": "777", 'suspectID': "777"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+
+payload = {"voterID": "888", 'suspectID': "666"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+
+payload = {"voterID": "1234", 'suspectID': "666"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+payload = {"voterID": "555", 'suspectID': "1234"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+payload = {"voterID": "900", 'suspectID': "666"}
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
+			auth=HTTPBasicAuth(username, password))
+
+print("votes set")
+
+#Players Alive
+r = requests.get('http://mighty-sea-1005.herokuapp.com/players/alive', 
+			auth=HTTPBasicAuth(username, password))
+print("players alive " + r.text)
 
 '''
 #Players Near
