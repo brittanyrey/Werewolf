@@ -54,6 +54,10 @@ public class MongoGameDAO implements IGameDAO{
 	public boolean isNight() {
 		DBCollection table = db.getCollection("game");
 		BasicDBObject object =  (BasicDBObject) table.findOne();
+		if (object == null) {
+			System.out.println("no game found");
+			return false;
+		}
 		Game game = new Game((int)object.get("dayNightFreq"));
 		game.setCreatedDate((Date)object.get("createdDate"));
 		return game.isNight();
