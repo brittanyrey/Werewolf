@@ -47,7 +47,6 @@ public class MongoGameDAO implements IGameDAO{
 		DBCollection table = db.getCollection("game");
 		DBCursor cursor =   table.find();
 		DBObject object = (cursor == null ? null : cursor.next());
-		System.out.println(cursor + " " + object);
 		return (boolean) object.get("isRunning");
 	}
 
@@ -56,6 +55,7 @@ public class MongoGameDAO implements IGameDAO{
 		DBCollection table = db.getCollection("game");
 		BasicDBObject object =  (BasicDBObject) table.findOne();
 		Game game = new Game((int)object.get("dayNightFreq"));
+		game.setCreatedDate((Date)object.get("createdDate"));
 		return game.isNight();
 	}
 

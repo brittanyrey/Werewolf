@@ -45,7 +45,7 @@ public class Game {
 		Date currentDate = new Date();
 		long timeElapsed = currentDate.getTime() - this.createdDate.getTime();
 		long timeOfDay = (timeElapsed/this.dayNightFreq)%2;
-		System.out.println(this.createdDate + " curr " + currentDate + " time " + timeElapsed);
+		System.out.println(this.createdDate + " current date " + currentDate + " time passed " + timeElapsed);
 		if (timeOfDay == 0) {
 			return false;
 		}

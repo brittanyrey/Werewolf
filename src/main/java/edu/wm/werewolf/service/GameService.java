@@ -122,7 +122,6 @@ public class GameService {
 	}
 
 	public void vote(String voter, String suspect) {
-		System.out.println("It is night: " + gameDAO.isNight());
 		if (gameDAO.getIsRunning() && !gameDAO.isNight()) {
 			playerDAO.vote(voter, suspect);
 		}
