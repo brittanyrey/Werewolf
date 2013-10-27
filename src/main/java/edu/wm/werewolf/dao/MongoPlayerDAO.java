@@ -165,14 +165,13 @@ public class MongoPlayerDAO implements IPlayerDAO {
 	}
 
 	@Override
-	public void vote(String userID, String suspect){
-		
+	public void vote(String userID, String suspect){		
 		DBCollection table = db.getCollection("players");
 
 		BasicDBObject newDocument = new BasicDBObject();
 		newDocument.append(
 				"$set",
-				new BasicDBObject().append("votedAgainst",suspect));
+				new BasicDBObject().put("votedAgainst",suspect));
 
 		BasicDBObject searchQuery = new BasicDBObject().append("userID",
 				userID);
