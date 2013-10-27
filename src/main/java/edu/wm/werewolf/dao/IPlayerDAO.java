@@ -10,7 +10,7 @@ public interface IPlayerDAO {
 	
 	void createPlayer(Player player);
 	List<Player> getAllAlive();
-	void setDead(Player p);
+	void setDead(String userID);
 	Player getPlayerByUserID(String id) throws NoPlayerFoundException;
 	void setPlayerLocation(String id, GPSLocation loc);
 	void reset();

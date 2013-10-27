@@ -77,21 +77,21 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/players/near", method=RequestMethod.GET)
-	public @ResponseBody List<Player> getAllPlayersNear(Player player)
+	public @ResponseBody List<Player> getAllPlayersNear(String userID)
 	{
+		// SCENT
 		logger.info("Get all players near");
-		List<Player> players = gameService.getAllPlayersNear(player);
+		List<Player> players = gameService.getAllPlayersNear(userID);
 		return players;
 	}
 	
 	@RequestMapping(value = "players/kill", method=RequestMethod.POST)
-	public void setKill(Player killer, Player victim)
+	public void setKill(String killer, String victim)
 	{
 		logger.info("in kill");
 		if (gameService.canKill(killer, victim))
 		{
-			Kill kill = new Kill(killer.getId(), victim.getId(), new Date(), killer.getLat(), killer.getLng());
-			gameService.setKill(kill);
+			gameService.setKill(killer, victim);
 			logger.info("Set kill");
 		}
 	}

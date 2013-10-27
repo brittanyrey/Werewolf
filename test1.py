@@ -156,7 +156,7 @@ requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payloa
 			auth=HTTPBasicAuth(username, password))
 
 payload = {"voterID": "111", 'suspectID': "666"}
-requests.post('http://mighty-sea-1005.herokuapp.com/pla"yers/vote', data = payload, 
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
 payload = {"voterID": "222", 'suspectID': "111"}
@@ -171,7 +171,7 @@ payload = {"voterID": "666", 'suspectID': "777"}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
-payload = {"voterID": "777", 'suspectID': "777"}
+payload = {"voterID": "777", 'suspectID': "666"}
 requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
@@ -196,7 +196,7 @@ r = requests.get('http://mighty-sea-1005.herokuapp.com/players/alive',
 			auth=HTTPBasicAuth(username, password))
 print("players alive " + r.text)
 
-'''
+
 #Players Near
 payload = {'player': {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95, 
 "userID" : "brittany", "isWerewolf" : True} , 'daynightFreq' : 12}
@@ -212,5 +212,3 @@ payload = {'killer' : {'id' : '123', "isDead" : False, "lat" : 30, "lng" : 95,
 requests.post('http://mighty-sea-1005.herokuapp.com/players/kill', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 print("Kill")
-
-'''

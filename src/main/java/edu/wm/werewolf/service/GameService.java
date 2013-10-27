@@ -37,11 +37,20 @@ public class GameService {
 		return playerDAO.getAllAlive();
 	}
 
-	public List<Player> getAllPlayersNear(Player player) {
+	public List<Player> getAllPlayersNear(String userID) {
 		if (!gameDAO.getIsRunning()) {
 			return null;
 		}
-		return playerDAO.getAllNear(player);
+		
+		try {
+			Player player = playerDAO.getPlayerByUserID(userID);
+			if (player.isWerewolf()) {
+				return playerDAO.getAllNear(player);
+			}
+		} catch (NoPlayerFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public void updatePosition(String userName, double lat, double lng) {
@@ -53,25 +62,36 @@ public class GameService {
 		}
 	}
 
-	public boolean canKill(Player killer, Player victim) {
+	public boolean canKill(String killer, String victim) {
 		if (!gameDAO.getIsRunning()) {
 			return false;
 		}
-
+		// TODO Add back in isNight()
 		System.out.println("Is night: " + gameDAO.isNight());
-		if (killer.isWerewolf() && !victim.isWerewolf() && !victim.isDead()
-				&& gameDAO.isNight()) {
-			return true;
-		} else {
-			return false;
+		try {
+			Player killerObj = playerDAO.getPlayerByUserID(killer);
+			Player victimObj = playerDAO.getPlayerByUserID(victim);
+			if (killerObj.isWerewolf() && !victimObj.isWerewolf() && !victimObj.isDead()) {
+				//	&& gameDAO.isNight()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (NoPlayerFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return false;
 	}
 
-	public void setKill(Kill kill) {
+	public void setKill(String killerID, String victimID) {
 		if (gameDAO.getIsRunning()) {
-			killsDAO.setKill(kill);
 			try {
-				playerDAO.setDead(playerDAO.getPlayerByUserID(kill.getVictimID()));
+				Player killerObj = playerDAO.getPlayerByUserID(killerID);
+				Player victimObj = playerDAO.getPlayerByUserID(victimID);
+				Kill kill = new Kill(killerID, victimID, new Date(), killerObj.getLat(), killerObj.getLng());
+				killsDAO.setKill(kill);
+				playerDAO.setDead(victimID);
 			} catch (NoPlayerFoundException e) {
 				e.printStackTrace();
 			}
@@ -122,6 +142,7 @@ public class GameService {
 	}
 
 	public void vote(String voter, String suspect) {
+		// TODO take out comment
 		if (gameDAO.getIsRunning() ) {//&& !gameDAO.isNight()) {
 			playerDAO.vote(voter, suspect);
 		}

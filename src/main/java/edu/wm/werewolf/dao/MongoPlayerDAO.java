@@ -2,6 +2,7 @@ package edu.wm.werewolf.dao;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,19 +68,21 @@ public class MongoPlayerDAO implements IPlayerDAO {
 					(boolean) player.get("isDead"), (double) player.get("lat"),
 					(double) player.get("lng"), (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
+			alivePlayer.setLastUpdate((Date) player.get("lastUpdate"));
+			alivePlayer.setVotedAgainst((String)player.get("votedAgainst")); 
 			players.add(alivePlayer);
 		}
 		return players;
 	}
 
 	@Override
-	public void setDead(Player p) {
+	public void setDead(String userID) {
 		DBCollection table = db.getCollection("players");
 
 		BasicDBObject newDocument = new BasicDBObject();
 		newDocument.append("$set", new BasicDBObject().append("isDead", true));
 
-		BasicDBObject searchQuery = new BasicDBObject().append("id", p.getId());
+		BasicDBObject searchQuery = new BasicDBObject().append("userID",userID);
 		table.update(searchQuery, newDocument);
 	}
 
@@ -132,30 +135,26 @@ public class MongoPlayerDAO implements IPlayerDAO {
 	// TODO fix this
 	@Override
 	public List<Player> getAllNear(Player player) {
-		if (player.isWerewolf()) {
-			DBCollection table = db.getCollection("players");
-			List<Player> allPlayersNear = new ArrayList<Player>();
-			BasicDBObject locQuery = new BasicDBObject();
-			locQuery.put("loc", new BasicDBObject("$near", new Double[] {
-					player.getLng(), player.getLat() }));
-			DBCursor locCursor = table.find(locQuery);
+		DBCollection table = db.getCollection("players");
+		List<Player> allPlayersNear = new ArrayList<Player>();
+		BasicDBObject locQuery = new BasicDBObject();
+		locQuery.put("loc", new BasicDBObject("$near", new Double[] {
+				player.getLng(), player.getLat() }));
+		DBCursor locCursor = table.find(locQuery);
 
-			while (locCursor.hasNext()) {
-				DBObject result = locCursor.next();
-				try {
-					if ((String) result.get("isDead") != "false") {
-						allPlayersNear.add(getPlayerByUserID((String) result
-								.get("id")));
-					}
-				} catch (NoPlayerFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		while (locCursor.hasNext()) {
+			DBObject result = locCursor.next();
+			try {
+				if ((String) result.get("isDead") != "false") {
+					allPlayersNear.add(getPlayerByUserID((String) result
+							.get("id")));
 				}
+			} catch (NoPlayerFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			return allPlayersNear;
-		} else {
-			return null;
 		}
+		return allPlayersNear;
 	}
 
 	@Override

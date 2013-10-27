@@ -18,7 +18,7 @@ requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payloa
 			auth=HTTPBasicAuth(username, password))
 
 payload = {"voterID": "111", 'suspectID': "666"}
-requests.post('http://mighty-sea-1005.herokuapp.com/pla"yers/vote', data = payload, 
+requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 
 payload = {"voterID": "222", 'suspectID': "111"}
@@ -52,7 +52,6 @@ requests.post('http://mighty-sea-1005.herokuapp.com/players/vote', data = payloa
 			auth=HTTPBasicAuth(username, password))
 
 print("votes set")
-
 
 #Players Alive
 r = requests.get('http://mighty-sea-1005.herokuapp.com/players/alive', 
