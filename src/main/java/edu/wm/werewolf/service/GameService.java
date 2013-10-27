@@ -49,6 +49,9 @@ public class GameService {
 					return playerDAO.getAllNear(player);
 				}
 			}
+			else {
+				System.out.println("PLAYER WAS NULL");
+			}
 		} catch (NoPlayerFoundException e) {
 			e.printStackTrace();
 		}
