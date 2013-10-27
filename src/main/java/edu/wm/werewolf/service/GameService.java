@@ -44,8 +44,10 @@ public class GameService {
 		
 		try {
 			Player player = playerDAO.getPlayerByUserID(userID);
-			if (player.isWerewolf()) {
-				return playerDAO.getAllNear(player);
+			if (player != null) {
+				if (player.isWerewolf()) {
+					return playerDAO.getAllNear(player);
+				}
 			}
 		} catch (NoPlayerFoundException e) {
 			e.printStackTrace();
