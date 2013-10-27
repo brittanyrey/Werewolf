@@ -80,7 +80,7 @@ public class HomeController {
 	public @ResponseBody List<Player> getAllPlayersNear(String userID)
 	{
 		// SCENT
-		logger.info("Get all players near");
+		logger.info("Get all players near "+ userID);
 		List<Player> players = gameService.getAllPlayersNear(userID);
 		return players;
 	}

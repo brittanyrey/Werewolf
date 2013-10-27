@@ -191,6 +191,9 @@ public class MongoPlayerDAO implements IPlayerDAO {
 					(boolean) player.get("isDead"), (double) player.get("lat"),
 					(double) player.get("lng"), (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
+
+			werewolves.setLastUpdate((Date) player.get("lastUpdate"));
+			werewolves.setVotedAgainst((String)player.get("votedAgainst")); 
 			players.add(werewolves);
 		}
 		return players;
@@ -208,6 +211,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 					(boolean) player.get("isDead"), (double) player.get("lat"),
 					(double) player.get("lng"), (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
+			townies.setLastUpdate((Date) player.get("lastUpdate"));
+			townies.setVotedAgainst((String)player.get("votedAgainst")); 
 			players.add(townies);
 		}
 		return players;

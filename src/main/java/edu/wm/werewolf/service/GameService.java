@@ -60,10 +60,9 @@ public class GameService {
 
 	public void updatePosition(String userName, double lat, double lng) {
 		if (gameDAO.getIsRunning()) {
-			User user = userDAO.getUserbyID(userName);
 			Date now = new Date();
 			GPSLocation location = new GPSLocation(lat, lng, now);
-			playerDAO.setPlayerLocation(user.getId(), location);
+			playerDAO.setPlayerLocation(userName, location);
 		}
 	}
 
