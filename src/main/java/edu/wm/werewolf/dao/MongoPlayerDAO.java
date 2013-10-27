@@ -122,12 +122,14 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		BasicDBObject query = new BasicDBObject("userID", id);
 		DBCursor cursor = table.find(query);
 		Player playerObject = null;
-		while (cursor.hasNext()) {
+		if (cursor.hasNext()) {
 			DBObject player = cursor.next();
 			playerObject = new Player((String) player.get("id"),
 					(boolean) player.get("isDead"), (double) player.get("lat"),
 					(double) player.get("lng"), (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
+			playerObject.setLastUpdate((Date) player.get("lastUpdate"));
+			playerObject.setVotedAgainst((String)player.get("votedAgainst")); 
 		}
 		return playerObject;
 	}
