@@ -54,7 +54,7 @@ public class MongoUserDao implements IUserDAO{
 			user = new User((String)userObject.get("id"), (String)userObject.get("firstName"),
 					(String)userObject.get("lastName"), (String)userObject.get("username"), (String)userObject.get("password"),
 					(String)userObject.get("image"), (boolean)userObject.get("isAdmin"));
-		
+			user.setScore((int) userObject.get("score"));
 		}
 		return user;
 	}
@@ -71,7 +71,7 @@ public class MongoUserDao implements IUserDAO{
 			user = new User((String)userObject.get("id"), (String)userObject.get("firstName"),
 				(String)userObject.get("lastName"), (String)userObject.get("username"), (String)userObject.get("password"),
 				(String)userObject.get("image"), (boolean)userObject.get("isAdmin"));
-	
+			user.setScore((int) userObject.get("score"));
 		}
 		return user;
 	}
@@ -87,10 +87,30 @@ public class MongoUserDao implements IUserDAO{
 			User user = new User((String)userObject.get("id"), (String)userObject.get("firstName"),
 					(String)userObject.get("lastName"), (String)userObject.get("username"), (String)userObject.get("password"),
 					(String)userObject.get("image"), (boolean)userObject.get("isAdmin"));
-		
+			user.setScore((int) userObject.get("score"));
 			
 			users.add(user);
 		}
 		return users;
+	}
+
+	@Override
+	public void updateHighScore(int incrementBy, String userID) {
+		DBCollection table = db.getCollection("user");
+		BasicDBObject query = new BasicDBObject("id", userID);
+		DBCursor cursor = table.find(query);
+		if (cursor.hasNext()) {
+			DBObject user = cursor.next();
+			int currentScore = (int) user.get("score");
+			
+			BasicDBObject newDocument = new BasicDBObject();
+			newDocument.append(
+					"$set",
+					new BasicDBObject().append("score",currentScore + incrementBy));
+
+			BasicDBObject searchQuery = new BasicDBObject().append("id",
+					userID);
+			table.update(searchQuery, newDocument);
+		}
 	}
 }

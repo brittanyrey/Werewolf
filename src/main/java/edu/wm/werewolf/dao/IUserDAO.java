@@ -12,4 +12,5 @@ public interface IUserDAO {
 
 	User getUserbyID(String id);
 	List <User> getAllUsers ();
+	void updateHighScore(int incrementBy, String userID);
 }

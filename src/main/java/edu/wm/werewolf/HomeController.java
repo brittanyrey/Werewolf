@@ -68,6 +68,20 @@ public class HomeController {
 		}
 	}
 	
+	@RequestMapping(value = "admin/endGame", method=RequestMethod.POST)
+	public void endGame(String id)
+	{
+		if (gameService.isAdmin(id)) 
+		{
+			gameService.endGame();
+			logger.info("New game started by: " + id );
+		}
+		else 
+		{
+			logger.info("User is not Admin. Game is still in session");
+		}
+	}
+	
 	@RequestMapping(value = "/players/alive", method=RequestMethod.GET)
 	public @ResponseBody List<Player> getAllAlive()
 	{
@@ -76,7 +90,7 @@ public class HomeController {
 		return players;
 	}
 
-	@RequestMapping(value = "/players/near", method=RequestMethod.GET)
+	@RequestMapping(value = "/players/findAllNear", method=RequestMethod.GET)
 	public @ResponseBody List<Player> getAllPlayersNear(String userID)
 	{
 		// SCENT

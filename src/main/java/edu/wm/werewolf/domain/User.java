@@ -23,6 +23,7 @@ public class User {
 		this.hashedPassword = hashedPassword;
 		this.imageURL = imageURL;
 		this.isAdmin = isAdmin;
+		this.score = 0;
 	}
 	public boolean isAdmin() {
 		return isAdmin;

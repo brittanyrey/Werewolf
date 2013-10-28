@@ -158,15 +158,20 @@ public class GameService {
 
 		else if (!gameDAO.getIsRunning()) {
 		}
-
+		
 		else if ((playerDAO.getAllWerewolves().size() == 0)
 				|| (playerDAO.getAllWerewolves().size() > playerDAO
 						.getAllTownspeople().size())) {
 			gameDAO.endGame();
+			List <Player> aliveList = playerDAO.getAllAlive();
+			for (int x = 0; x < aliveList.size(); x++)
+			{
+				userDAO.updateHighScore(1, aliveList.get(x).getUserId());
+			}
 		}
-		// TODO add another else if that checks if its time to vote
-		// & also if it's time to collect votes.
-		// must vote off person who is voted most
+		// TODO 
+		// -if it's time to collect votes.
+		// -must vote off person who is voted most
 	}
 
 	public void addUser(String id, String firstName, String lastName,
@@ -175,5 +180,9 @@ public class GameService {
 		User user = new User(id, firstName, lastName, username, hashedPassword,
 				imageURL, isAdmin);
 		userDAO.createUser(user);
+	}
+
+	public void endGame() {
+		gameDAO.endGame();		
 	}
 }

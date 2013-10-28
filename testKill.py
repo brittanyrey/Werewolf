@@ -1,6 +1,7 @@
 ######## finds players near a wolf and kills one ########
 
 import requests
+from urllib import urlencode
 from requests.auth import HTTPBasicAuth
 
 username = "brittany"
@@ -8,10 +9,11 @@ password = "yes"
 
 #Players Near
 payload = {'userID' : '3393'}
-r = requests.get('http://mighty-sea-1005.herokuapp.com/players/near', 
-	data = payload, auth=HTTPBasicAuth(username, password))
+r = requests.get('http://mighty-sea-1005.herokuapp.com/players/findAllNear', 
+	data = urlencode(payload), auth=HTTPBasicAuth(username, password))
 print("User ID: 3393---players near " + r.text)
 
+'''
 payload = {'userID' : '555'}
 r = requests.get('http://mighty-sea-1005.herokuapp.com/players/near', data = payload, 
 			auth=HTTPBasicAuth(username, password))
@@ -66,4 +68,4 @@ payload = {'userID' : '900'}
 r = requests.get('http://mighty-sea-1005.herokuapp.com/players/near', data = payload, 
 			auth=HTTPBasicAuth(username, password))
 print("User ID: 900---players near " + r.text)
-
+'''
