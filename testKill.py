@@ -10,7 +10,7 @@ password = "yes"
 #Players Near
 payload = {'userID' : '3393'}
 r = requests.get('http://mighty-sea-1005.herokuapp.com/players/findAllNear', 
-	data = urlencode(payload), auth=HTTPBasicAuth(username, password))
+	data = payload, auth=HTTPBasicAuth(username, password))
 print("User ID: 3393---players near " + r.text)
 
 '''
