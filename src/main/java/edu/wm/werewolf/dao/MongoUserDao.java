@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.util.StringUtils;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -62,6 +63,7 @@ public class MongoUserDao implements IUserDAO{
 	@Override
 	public User getUserByName (String name) {
 		DBCollection table = db.getCollection("user");
+		name = StringUtils.capitalize(name);
 		BasicDBObject query = new BasicDBObject("firstName", name);
 		DBCursor cursor = table.find(query);
 		User user = null;
