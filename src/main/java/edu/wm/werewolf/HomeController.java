@@ -91,11 +91,11 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/players/findAllNear", method=RequestMethod.GET)
-	public @ResponseBody List<Player> getAllPlayersNear(String userID)
+	public @ResponseBody List<Player> getAllPlayersNear(Principal principal)
 	{
 		// SCENT
-		logger.info("Get all players near "+ userID);
-		List<Player> players = gameService.getAllPlayersNear(userID);
+		logger.info("Get all players near "+ principal.getName());
+		List<Player> players = gameService.getAllPlayersNear(principal.getName());
 		return players;
 	}
 	
