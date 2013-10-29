@@ -96,6 +96,7 @@ public class HomeController {
 		// SCENT
 		logger.info("Get all players near "+ principal.getName());
 		List<Player> players = gameService.getAllPlayersNear(principal.getName());
+		logger.info(players.toString());
 		return players;
 	}
 	
