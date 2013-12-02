@@ -59,8 +59,7 @@ public class MongoGameDAO implements IGameDAO{
 		if (cursor.hasNext())
 		{
 			DBObject gameInfo = cursor.next();
-			System.out.println((int)gameInfo.get("dayNightFreq"));
-			Game game = new Game((int)gameInfo.get("dayNightFreq"));
+			Game game = new Game((int)gameInfo.get("dayNightFrequency"));
 			game.setCreatedDate((Date)gameInfo.get("createdDate"));
 			return game.isNight();
 		}
