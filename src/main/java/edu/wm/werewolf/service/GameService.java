@@ -186,4 +186,13 @@ public class GameService {
 	public void endGame() {
 		gameDAO.endGame();		
 	}
+	
+	public boolean isNight() {
+		if (gameDAO == null) {
+		}
+		else if (gameDAO.getIsRunning()) {
+			return gameDAO.isNight();
+		}
+		return false;
+	}
 }

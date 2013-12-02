@@ -89,6 +89,14 @@ public class HomeController {
 		List<Player> players = gameService.getAllAlive();
 		return players;
 	}
+	
+	@RequestMapping(value = "/isNight", method=RequestMethod.GET)
+	public @ResponseBody boolean isNight()
+	{
+		logger.info("isNight?");
+		boolean isNight = gameService.isNight();
+		return isNight;
+	}
 
 	@RequestMapping(value = "/players/findAllNear", method=RequestMethod.GET)
 	public @ResponseBody List<Player> getAllPlayersNear(Principal principal)
@@ -96,7 +104,6 @@ public class HomeController {
 		// SCENT
 		logger.info("Get all players near "+ principal.getName());
 		List<Player> players = gameService.getAllPlayersNear(principal.getName());
-		logger.info(players.toString());
 		return players;
 	}
 	
