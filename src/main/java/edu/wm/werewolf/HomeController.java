@@ -61,9 +61,9 @@ public class HomeController {
 		if (gameService.isAdmin(id)) 
 		{
 			gameService.newGame(dayNightFreq);
-			logger.info("New game started by: " + id );
+			logger.info("New game started by: " + id +"with DNF"+ dayNightFreq);
 		}
-		else 
+		else  
 		{
 			logger.info("New game could not be created. User is not Admin");
 		}

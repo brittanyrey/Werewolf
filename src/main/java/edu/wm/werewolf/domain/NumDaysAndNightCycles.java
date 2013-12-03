@@ -1,18 +1,18 @@
 package edu.wm.werewolf.domain;
 
 public class NumDaysAndNightCycles {
-	private long numDays;
+	private float numDays;
 	private boolean isNight;
 	
-	public NumDaysAndNightCycles(long numDays, boolean isNight) {
+	public NumDaysAndNightCycles(float numDays, boolean isNight) {
 		super();
 		this.numDays = numDays;
 		this.isNight = isNight;
 	}
-	public long getNumDays() {
+	public float getNumDays() {
 		return numDays;
 	}
-	public void setNumDays(long numDays) {
+	public void setNumDays(float numDays) {
 		this.numDays = numDays;
 	}
 	public boolean isNight() {
