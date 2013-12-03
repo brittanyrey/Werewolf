@@ -41,14 +41,24 @@ public class Game {
 	public void setTimer(long timer) {
 		this.timer = timer;
 	}
-	public boolean isNight() { 
+	public NumDaysAndNightCycles isNightAndNumDays() { 
+		NumDaysAndNightCycles daysAndIsNight;
 		Date currentDate = new Date();
 		long timeElapsed = currentDate.getTime() - this.createdDate.getTime();
-		long timeOfDay = (timeElapsed/this.dayNightFreq)%2;
-		System.out.println(this.createdDate + " current date " + currentDate + " time passed " + timeElapsed);
-		if (timeOfDay == 0) {
-			return false;
+		long numOfcycles = (timeElapsed/this.dayNightFreq);
+		long numOfDays = (numOfcycles/2)+1;
+		long dayOrNight= numOfcycles%2;
+		System.out.println("created Date: " + this.createdDate + " current date " + 
+							currentDate + " time passed " + timeElapsed + "num of cylces" + numOfcycles
+							+ "num of days:" + numOfDays + "day orNight" + dayOrNight );
+		if (dayOrNight >1) {
+			daysAndIsNight = new NumDaysAndNightCycles(numOfDays, true);
+			return daysAndIsNight;
 		}
-		return true;
+		else {
+			daysAndIsNight = new NumDaysAndNightCycles(numOfDays, false);
+			return daysAndIsNight;
+		}
+		
 	}
 }
