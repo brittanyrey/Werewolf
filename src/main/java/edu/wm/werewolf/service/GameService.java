@@ -15,6 +15,7 @@ import edu.wm.werewolf.dao.IUserDAO;
 import edu.wm.werewolf.domain.GPSLocation;
 import edu.wm.werewolf.domain.Game;
 import edu.wm.werewolf.domain.Kill;
+import edu.wm.werewolf.domain.NumDaysAndNightCycles;
 import edu.wm.werewolf.domain.Player;
 import edu.wm.werewolf.domain.User;
 import edu.wm.werewolf.exceptions.NoPlayerFoundException;
@@ -187,12 +188,12 @@ public class GameService {
 		gameDAO.endGame();		
 	}
 	
-	public boolean isNight() {
+	public NumDaysAndNightCycles isNight() {
 		if (gameDAO == null) {
 		}
 		else if (gameDAO.getIsRunning()) {
 			return gameDAO.isNight();
 		}
-		return false;
+		return new NumDaysAndNightCycles(0, false);
 	}
 }

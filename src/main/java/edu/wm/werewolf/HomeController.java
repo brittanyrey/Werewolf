@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import edu.wm.werewolf.domain.GPSLocation;
 import edu.wm.werewolf.domain.Game;
 import edu.wm.werewolf.domain.Kill;
+import edu.wm.werewolf.domain.NumDaysAndNightCycles;
 import edu.wm.werewolf.domain.Player;
 import edu.wm.werewolf.domain.User;
 import edu.wm.werewolf.service.GameService;
@@ -91,10 +92,10 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/isNight", method=RequestMethod.GET)
-	public @ResponseBody boolean isNight()
+	public @ResponseBody NumDaysAndNightCycles isNight()
 	{
 		logger.info("isNight?");
-		boolean isNight = gameService.isNight();
+		NumDaysAndNightCycles isNight = gameService.isNight();
 		return isNight;
 	}
 

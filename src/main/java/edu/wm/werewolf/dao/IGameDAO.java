@@ -1,12 +1,13 @@
 package edu.wm.werewolf.dao;
 
 import edu.wm.werewolf.domain.Game;
+import edu.wm.werewolf.domain.NumDaysAndNightCycles;
 
 public interface IGameDAO {
 
 	boolean getIsRunning();
 
-	boolean isNight();
+	NumDaysAndNightCycles isNight();
 
 	void createGame(Game game);
 

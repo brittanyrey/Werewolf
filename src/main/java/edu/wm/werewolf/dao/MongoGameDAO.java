@@ -15,6 +15,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import edu.wm.werewolf.domain.Game;
+import edu.wm.werewolf.domain.NumDaysAndNightCycles;
 import edu.wm.werewolf.domain.Player;
 import edu.wm.werewolf.mongoDB.SpringMongoConfig;
 import java.util.Date;
@@ -52,7 +53,7 @@ public class MongoGameDAO implements IGameDAO{
 	}
 
 	@Override
-	public boolean isNight() {
+	public NumDaysAndNightCycles isNight() {
 		DBCollection table = db.getCollection("game");
 		BasicDBObject query = new BasicDBObject("isRunning", true);
 		DBCursor cursor =  (DBCursor) table.find(query);
@@ -61,9 +62,9 @@ public class MongoGameDAO implements IGameDAO{
 			DBObject gameInfo = cursor.next();
 			Game game = new Game((int)gameInfo.get("dayNightFrequency"));
 			game.setCreatedDate((Date)gameInfo.get("createdDate"));
-			return game.isNight();
+			return game.isNightAndNumDays();
 		}
-		return false;		
+		return new NumDaysAndNightCycles(0, false);		
 	}
 
 	@Override
