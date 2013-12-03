@@ -8,11 +8,10 @@ public class Game {
 	private Date createdDate;
 	private boolean isRunning;
 	private long timer;
-	private int millisecondsInAMin = 60000;
 	
 	public Game(int dayNightFreq) {
 		super();
-		this.dayNightFreq = dayNightFreq * millisecondsInAMin;
+		this.dayNightFreq = dayNightFreq;
 		this.createdDate = new Date();
 		this.isRunning = true;
 		this.timer = 0;

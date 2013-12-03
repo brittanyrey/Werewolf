@@ -114,7 +114,7 @@ public class GameService {
 		playerDAO.reset();
 		gameDAO.reset();
 
-		Game game = new Game(dayNightFreq);
+		Game game = new Game(dayNightFreq*60000);
 		gameDAO.createGame(game);
 
 		// List <MyUser> users = userDAO.getAllUsers();
