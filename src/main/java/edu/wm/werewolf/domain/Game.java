@@ -16,6 +16,8 @@ public class Game {
 		this.createdDate = new Date();
 		this.isRunning = true;
 		this.timer = 0;
+
+		System.out.println(dayNightFreq + " "+ this.dayNightFreq);
 	}
 	public int getDayNightFreq() {
 		return dayNightFreq;

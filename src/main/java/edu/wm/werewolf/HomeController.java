@@ -61,7 +61,7 @@ public class HomeController {
 		if (gameService.isAdmin(id)) 
 		{
 			gameService.newGame(dayNightFreq);
-			logger.info("New game started by: " + id +"with DNF"+ dayNightFreq);
+			logger.info("New game started by: " + id +"with DNF "+ dayNightFreq);
 		}
 		else  
 		{
