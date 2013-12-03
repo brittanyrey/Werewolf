@@ -48,9 +48,10 @@ public class Game {
 		long numOfcycles = (timeElapsed/this.dayNightFreq);
 		long numOfDays = (numOfcycles/2)+1;
 		long dayOrNight= numOfcycles%2;
-		System.out.println("created Date: " + this.createdDate + " current date " + 
-							currentDate + " time passed " + timeElapsed + "num of cylces" + numOfcycles
-							+ "num of days:" + numOfDays + "day orNight" + dayOrNight );
+		System.out.println("\ncreated Date: " + this.createdDate + " \ncurrent date " + 
+							currentDate + " \ntime passed " + timeElapsed + "\nnum of cylces: " + numOfcycles
+							+ "\nnum of days: " + numOfDays + "day orNight :" + dayOrNight +
+							"\ncycle length :" this.dayNightFreq);
 		if (dayOrNight >1) {
 			daysAndIsNight = new NumDaysAndNightCycles(numOfDays, true);
 			return daysAndIsNight;
