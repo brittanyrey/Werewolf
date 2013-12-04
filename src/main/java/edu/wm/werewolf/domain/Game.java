@@ -56,14 +56,7 @@ public class Game {
 							"\nnum of days: " + numOfDays + 
 							"\nday or Night: " + dayOrNight +
 							"\ncycle length: "+ this.dayNightFreq);
-		if (dayOrNight != 0) {
-			daysAndIsNight = new NumDaysAndNightCycles(numOfDays, true);
-			return daysAndIsNight;
-		}
-		else {
-			daysAndIsNight = new NumDaysAndNightCycles(numOfDays, false);
-			return daysAndIsNight;
-		}
-		
+		return dayOrNight != 0 ? new NumDaysAndNightCycles(numOfDays, true) : 
+			new NumDaysAndNightCycles(numOfDays, false);
 	}
 }

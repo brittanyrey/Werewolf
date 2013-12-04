@@ -72,19 +72,17 @@ public class GameService {
 		if (!gameDAO.getIsRunning()) {
 			return false;
 		}
-		// TODO Add back in isNight()
-		System.out.println("Is night: " + gameDAO.isNight());
+		System.out.println("Is night: " + gameDAO.isNight().isNight());
 		try {
 			Player killerObj = playerDAO.getPlayerByUserID(killer);
 			Player victimObj = playerDAO.getPlayerByUserID(victim);
-			if (killerObj.isWerewolf() && !victimObj.isWerewolf() && !victimObj.isDead()) {
-				//	&& gameDAO.isNight()) {
+			if (killerObj.isWerewolf() && !victimObj.isWerewolf()
+					&& !victimObj.isDead() && gameDAO.isNight().isNight()) {
 				return true;
 			} else {
 				return false;
 			}
 		} catch (NoPlayerFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;

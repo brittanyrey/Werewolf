@@ -111,7 +111,7 @@ public class HomeController {
 	@RequestMapping(value = "players/kill", method=RequestMethod.POST)
 	public void setKill(String killer, String victim)
 	{
-		logger.info("in kill");
+		logger.info("in kill with killer " + killer + " victim "+victim);
 		if (gameService.canKill(killer, victim))
 		{
 			gameService.setKill(killer, victim);
@@ -129,6 +129,7 @@ public class HomeController {
 	@RequestMapping(value = "players/vote", method=RequestMethod.POST)
 	public void vote(String voterID, String suspectID)
 	{
+		logger.info("voterID" + " "  +suspectID);
 		gameService.vote(voterID, suspectID);
 		logger.info("Vote cast");
 	}
