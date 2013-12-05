@@ -43,7 +43,7 @@ public class GameService {
 		if (!gameDAO.getIsRunning()) {
 			return null;
 		}
-		
+
 		try {
 			User user = userDAO.getUserByName(name);
 			Player player = playerDAO.getPlayerByUserID(user.getId());
@@ -51,8 +51,7 @@ public class GameService {
 				if (player.isWerewolf()) {
 					return playerDAO.getAllNear(player);
 				}
-			}
-			else {
+			} else {
 				System.out.println("PLAYER WAS NULL");
 			}
 		} catch (NoPlayerFoundException e) {
@@ -94,7 +93,8 @@ public class GameService {
 			try {
 				Player killerObj = playerDAO.getPlayerByUserID(killerID);
 				Player victimObj = playerDAO.getPlayerByUserID(victimID);
-				Kill kill = new Kill(killerID, victimID, new Date(), killerObj.getLat(), killerObj.getLng());
+				Kill kill = new Kill(killerID, victimID, new Date(),
+						killerObj.getLat(), killerObj.getLng());
 				killsDAO.setKill(kill);
 				playerDAO.setDead(victimID);
 			} catch (NoPlayerFoundException e) {
@@ -102,10 +102,11 @@ public class GameService {
 			}
 		}
 	}
-	
+
 	public String getPassword(String usr) {
 		User user = userDAO.getUserbyID(usr);
-		return user.getHashedPassword() == null ? "fail" : user.getHashedPassword();
+		return user.getHashedPassword() == null ? "fail" : user
+				.getHashedPassword();
 	}
 
 	public boolean isAdmin(String id) {
@@ -114,16 +115,18 @@ public class GameService {
 	}
 
 	public void newGame(int dayNightFreq) {
-		List <Player> ps= getAllAlive();
-		for (Player p : ps) {
-			userDAO.updateHighScore(100, p.getId());
+		List<Player> ps = getAllAlive();
+		if (ps.size() > 0) {
+			for (Player p : ps) {
+				userDAO.updateHighScore(100, p.getId());
+			}
 		}
-		
+
 		killsDAO.reset();
 		playerDAO.reset();
 		gameDAO.reset();
 
-		Game game = new Game(dayNightFreq*60000);
+		Game game = new Game(dayNightFreq * 60000);
 		gameDAO.createGame(game);
 
 		// List <MyUser> users = userDAO.getAllUsers();
@@ -158,7 +161,7 @@ public class GameService {
 
 	public void vote(String voter, String suspect) {
 		// TODO take out comment
-		if (gameDAO.getIsRunning() ) {//&& !gameDAO.isNight()) {
+		if (gameDAO.getIsRunning()) {// && !gameDAO.isNight()) {
 			playerDAO.vote(voter, suspect);
 		}
 	}
@@ -169,18 +172,17 @@ public class GameService {
 
 		else if (!gameDAO.getIsRunning()) {
 		}
-		
+
 		else if ((playerDAO.getAllWerewolves().size() == 0)
 				|| (playerDAO.getAllWerewolves().size() > playerDAO
 						.getAllTownspeople().size())) {
 			gameDAO.endGame();
-			List <Player> aliveList = playerDAO.getAllAlive();
-			for (int x = 0; x < aliveList.size(); x++)
-			{
+			List<Player> aliveList = playerDAO.getAllAlive();
+			for (int x = 0; x < aliveList.size(); x++) {
 				userDAO.updateHighScore(1, aliveList.get(x).getUserId());
 			}
 		}
-		// TODO 
+		// TODO
 		// -if it's time to collect votes.
 		// -must vote off person who is voted most
 	}
@@ -194,16 +196,16 @@ public class GameService {
 	}
 
 	public void endGame() {
-		gameDAO.endGame();		
+		gameDAO.endGame();
 	}
-	
+
 	public NumDaysAndNightCycles getStatus() {
 		if (gameDAO == null) {
-		}
-		else if (gameDAO.getIsRunning()) {
+		} else if (gameDAO.getIsRunning()) {
 			Game game = gameDAO.getGame();
-			return new NumDaysAndNightCycles(game.getDays(), game.isNight(), playerDAO.getAllWerewolves().size(),
-					playerDAO.getAllAlive().size(), game.getDayNightFreq());
+			return new NumDaysAndNightCycles(game.getDays(), game.isNight(),
+					playerDAO.getAllWerewolves().size(), playerDAO
+							.getAllAlive().size(), game.getDayNightFreq());
 		}
 		return new NumDaysAndNightCycles(0, true, 0, 0, 0);
 	}
@@ -213,15 +215,12 @@ public class GameService {
 		Player p;
 		try {
 			p = playerDAO.getPlayerByUserID(user);
-			return new Stats(u.getScore(),
-					p.isDead(), 
-					p.isWerewolf(),
-					0, 
+			return new Stats(u.getScore(), p.isDead(), p.isWerewolf(), 0,
 					u.getImageURL());
 		} catch (NoPlayerFoundException e) {
 			e.printStackTrace();
-		}		
+		}
 		return null;
-		
+
 	}
 }
