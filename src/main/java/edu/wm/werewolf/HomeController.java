@@ -150,7 +150,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "players/stats", method=RequestMethod.GET)
-	public Stats vote(String user)
+	public @ResponseBody Stats vote(String user)
 	{
 		logger.info("get Status for " + user);
 		return gameService.getStats(user);
