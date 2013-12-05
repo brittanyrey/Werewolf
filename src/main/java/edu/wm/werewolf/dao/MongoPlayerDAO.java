@@ -145,7 +145,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		locQuery.put("lng", BasicDBObjectBuilder.start().append("$near",  p.getLng()).append("$maxDistance", .002).get());
 		locQuery.put("lat", BasicDBObjectBuilder.start().append("$near",  p.getLat()).append("$maxDistance", .002).get());
 		
-		DBCursor  locCursor = table.find(locQuery);=
+		DBCursor  locCursor = table.find(locQuery);
 		
 		List<Player> players = new ArrayList<>();
 		while (locCursor.hasNext()) {
