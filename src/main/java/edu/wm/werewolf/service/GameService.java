@@ -93,7 +93,7 @@ public class GameService {
 				Player killerObj = playerDAO.getPlayerByUserID(killerID);
 				Player victimObj = playerDAO.getPlayerByUserID(victimID);
 				Kill kill = new Kill(killerID, victimID, new Date(),
-						killerObj.getLocation());
+						killerObj.getLat(), killerObj.getLng());
 				killsDAO.setKill(kill);
 				playerDAO.setDead(victimID);
 			} catch (NoPlayerFoundException e) {

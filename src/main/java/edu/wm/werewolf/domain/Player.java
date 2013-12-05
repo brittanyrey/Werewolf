@@ -7,18 +7,20 @@ public class Player {
 	// Pojo! Plain old java object
 	private String id;
 	private boolean isDead;
-	private GPSLocation location;
+	private double lat;
+	private double lng;
 	private String userId;
 	private boolean isWerewolf;
 	private String votedAgainst;
 	private Date lastUpdate;
 	
-	public Player(String id, boolean isDead, GPSLocation location,
+	public Player(String id, boolean isDead, double lat, double lng,
 			String userId, boolean isWerewolf) {
 		super();
 		this.id = id;
 		this.isDead = isDead;
-		this.location = location;
+		this.lat = lat;
+		this.lng = lng;
 		this.userId = userId;
 		this.isWerewolf = isWerewolf;
 	}
@@ -46,11 +48,17 @@ public class Player {
 	public void setDead(boolean isDead) {
 		this.isDead = isDead;
 	}
-	public GPSLocation getLocation() {
-		return location;
+	public double getLat() {
+		return lat;
 	}
-	public void setLocation(GPSLocation location) {
-		this.location = location;
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+	public double getLng() {
+		return lng;
+	}
+	public void setLng(double lng) {
+		this.lng = lng;
 	}
 	public String getUserId() {
 		return userId;
