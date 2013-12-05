@@ -83,7 +83,7 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping(value = "/login", method=RequestMethod.GET)
+	@RequestMapping(value = "/login", method=RequestMethod.POST)
 	public @ResponseBody String login(String user)
 	{
 		logger.info("login attempt return pass for "+user);
