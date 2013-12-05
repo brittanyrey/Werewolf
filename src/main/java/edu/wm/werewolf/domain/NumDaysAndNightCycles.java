@@ -3,7 +3,7 @@ package edu.wm.werewolf.domain;
 public class NumDaysAndNightCycles {
 	private float numDays;
 	private boolean isNight;
-	private float alivePlayers;
+	private float alivePlayers; //error alive players == werewolves....
 	private float allPlayers;
 	private float dayNightCycle;
 	

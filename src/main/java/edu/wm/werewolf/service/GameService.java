@@ -17,6 +17,7 @@ import edu.wm.werewolf.domain.Game;
 import edu.wm.werewolf.domain.Kill;
 import edu.wm.werewolf.domain.NumDaysAndNightCycles;
 import edu.wm.werewolf.domain.Player;
+import edu.wm.werewolf.domain.Stats;
 import edu.wm.werewolf.domain.User;
 import edu.wm.werewolf.exceptions.NoPlayerFoundException;
 
@@ -205,5 +206,19 @@ public class GameService {
 					playerDAO.getAllAlive().size(), game.getDayNightFreq());
 		}
 		return new NumDaysAndNightCycles(0, true, 0, 0, 0);
+	}
+
+	public Stats getStats(String user) {
+		User u = userDAO.getUserbyID(user);
+		Player p;
+		try {
+			p = playerDAO.getPlayerByUserID(user);
+			return new Stats(u.getScore(), p.isDead(), p.isWerewolf(),
+					killsDAO.getKillsBySameKiller(p).size(), u.getImageURL());
+		} catch (NoPlayerFoundException e) {
+			e.printStackTrace();
+		}		
+		return null;
+		
 	}
 }

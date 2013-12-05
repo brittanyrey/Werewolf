@@ -147,6 +147,13 @@ public class HomeController {
 		logger.info("Vote cast");
 	}
 	
+	@RequestMapping(value = "players/stats", method=RequestMethod.GET)
+	public void vote(String user)
+	{
+		logger.info("voterID" + user);
+		gameService.getStats(user);
+	}
+	
 	public void CheckGameOperation () {
 		logger.info("Checking game operation...");
 		gameService.checkGame();
