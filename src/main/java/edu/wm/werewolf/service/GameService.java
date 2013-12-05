@@ -143,7 +143,7 @@ public class GameService {
 		}
 
 		Collections.shuffle(allPlayers, new Random(System.currentTimeMillis()));
-		int werewolfindex = (int) (allPlayers.size() / 3);
+		int werewolfindex = allPlayers.size() / 3;
 
 		if (werewolfindex == 0) {
 			werewolfindex = 1;
@@ -180,20 +180,43 @@ public class GameService {
 			for (int x = 0; x < aliveList.size(); x++) {
 				userDAO.updateHighScore(1, aliveList.get(x).getUserId());
 			}
-		}
-		else {
+		} else {
 			Game game = gameDAO.getGame();
 			Date currentDate = new Date();
-			float timeElapsed = currentDate.getTime() - game.getCreatedDate().getTime();
-			int numOfcycles = (int) (timeElapsed/game.getDayNightFreq());
-			if (timeElapsed - ((numOfcycles)*game.getDayNightFreq())<51000)	{
-				Player player = playerDAO.getPlayerWithMostVotes();
-				playerDAO.setDead(player.getUserId());
+			float timeElapsed = currentDate.getTime()
+					- game.getCreatedDate().getTime();
+			int numOfcycles = (int) (timeElapsed / game.getDayNightFreq());
+			if (timeElapsed - ((numOfcycles) * game.getDayNightFreq()) < 51000) {
+				List<Player> players = playerDAO.getAllAlive();
+				List<String> votesList = new ArrayList<String>();
+				for (int x = 0; x < players.size(); x++) {
+					if (players.get(x).getVotedAgainst() != null) {
+						votesList.add(players.get(x).getVotedAgainst());
+					}
+				}
+				String voteOUT = mostVotedFor(votesList);
+				playerDAO.setDead(voteOUT);
 			}
-		// TODO
-		// -if it's time to collect votes.
-		// -must vote off person who is voted most
+		}
 	}
+
+	private String mostVotedFor(List<String> votes) {
+		int count = 1, tempCt;
+		String popular = votes.get(0);
+		String temp = "";
+		for (int x = 0; x < votes.size() - 1; x++) {
+			temp = votes.get(x);
+			tempCt = 0;
+			for (int y = 0; y < votes.size(); y++) {
+				if (temp == votes.get(y))
+					tempCt++;
+			}
+			if (tempCt > count) {
+				popular = temp;
+				count = tempCt;
+			}
+		}
+		return popular;
 	}
 
 	public void addUser(String id, String firstName, String lastName,

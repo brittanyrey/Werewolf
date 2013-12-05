@@ -13,8 +13,7 @@ public interface IPlayerDAO {
 	void setDead(String userID);
 	Player getPlayerByUserID(String id) throws NoPlayerFoundException;
 	void setPlayerLocation(String id, GPSLocation loc);
-	void reset();
-	Player getPlayerWithMostVotes();
+	void reset();=
 	List<Player> getAllNear(Player player);
 	void vote(String userID, String suspect);
 	List<Player> getAllWerewolves();
