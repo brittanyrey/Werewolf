@@ -88,6 +88,7 @@ public class HomeController {
 	{
 		logger.info("login attempt return pass for "+user);
 		String pwrd = gameService.getPassword(user);
+		logger.info("pwrd ="+ pwrd);
 		return pwrd;
 	}
 	
