@@ -104,11 +104,11 @@ public class HomeController {
 		return players;
 	}
 	
-	@RequestMapping(value = "/isNight", method=RequestMethod.GET)
+	@RequestMapping(value = "/getStatus", method=RequestMethod.GET)
 	public @ResponseBody NumDaysAndNightCycles isNight()
 	{
 		logger.info("isNight?");
-		NumDaysAndNightCycles isNight = gameService.isNight();
+		NumDaysAndNightCycles isNight = gameService.getStatus();
 		return isNight;
 	}
 

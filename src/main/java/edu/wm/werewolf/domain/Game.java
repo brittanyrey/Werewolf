@@ -8,6 +8,7 @@ public class Game {
 	private Date createdDate;
 	private boolean isRunning;
 	private long timer;
+	private float days;
 	
 	public Game(int dayNightFreq) {
 		super();
@@ -42,8 +43,7 @@ public class Game {
 	public void setTimer(long timer) {
 		this.timer = timer;
 	}
-	public NumDaysAndNightCycles isNightAndNumDays() { 
-		NumDaysAndNightCycles daysAndIsNight;
+	public boolean isNight() { 
 		Date currentDate = new Date();
 		float timeElapsed = currentDate.getTime() - this.createdDate.getTime();
 		int numOfcycles = (int) (timeElapsed/this.dayNightFreq);
@@ -56,7 +56,12 @@ public class Game {
 							"\nnum of days: " + numOfDays + 
 							"\nday or Night: " + dayOrNight +
 							"\ncycle length: "+ this.dayNightFreq);
-		return dayOrNight != 0 ? new NumDaysAndNightCycles(numOfDays, true) : 
-			new NumDaysAndNightCycles(numOfDays, false);
+		return dayOrNight != 0 ?  true : false;
+	}
+	public float getDays() {
+		Date currentDate = new Date();
+		float timeElapsed = currentDate.getTime() - this.createdDate.getTime();
+		int numOfcycles = (int) (timeElapsed/this.dayNightFreq);
+		return (numOfcycles/2) + 1;	
 	}
 }

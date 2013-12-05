@@ -53,7 +53,7 @@ public class MongoGameDAO implements IGameDAO{
 	}
 
 	@Override
-	public NumDaysAndNightCycles isNight() {
+	public Game getGame () {
 		DBCollection table = db.getCollection("game");
 		BasicDBObject query = new BasicDBObject("isRunning", true);
 		DBCursor cursor =  (DBCursor) table.find(query);
@@ -62,9 +62,9 @@ public class MongoGameDAO implements IGameDAO{
 			DBObject gameInfo = cursor.next();
 			Game game = new Game((int)gameInfo.get("dayNightFrequency"));
 			game.setCreatedDate((Date)gameInfo.get("createdDate"));
-			return game.isNightAndNumDays();
+			return game;
 		}
-		return new NumDaysAndNightCycles(0, false);		
+		return null;		
 	}
 
 	@Override

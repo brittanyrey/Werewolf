@@ -72,12 +72,12 @@ public class GameService {
 		if (!gameDAO.getIsRunning()) {
 			return false;
 		}
-		System.out.println("Is night: " + gameDAO.isNight().isNight());
+		System.out.println("Is night: " + gameDAO.getGame().isNight());
 		try {
 			Player killerObj = playerDAO.getPlayerByUserID(killer);
 			Player victimObj = playerDAO.getPlayerByUserID(victim);
 			if (killerObj.isWerewolf() && !victimObj.isWerewolf()
-					&& !victimObj.isDead() && gameDAO.isNight().isNight()) {
+					&& !victimObj.isDead() && gameDAO.getGame().isNight()) {
 				return true;
 			} else {
 				return false;
@@ -196,12 +196,14 @@ public class GameService {
 		gameDAO.endGame();		
 	}
 	
-	public NumDaysAndNightCycles isNight() {
+	public NumDaysAndNightCycles getStatus() {
 		if (gameDAO == null) {
 		}
 		else if (gameDAO.getIsRunning()) {
-			return gameDAO.isNight();
+			Game game = gameDAO.getGame();
+			return new NumDaysAndNightCycles(game.getDays(), game.isNight(), playerDAO.getAllAlive().size(), 
+					userDAO.getAllUsers().size(), game.getDayNightFreq());
 		}
-		return new NumDaysAndNightCycles(0, false);
+		return new NumDaysAndNightCycles(0, true, 0, 0, 0);
 	}
 }

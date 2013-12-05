@@ -7,12 +7,12 @@ public interface IGameDAO {
 
 	boolean getIsRunning();
 
-	NumDaysAndNightCycles isNight();
-
 	void createGame(Game game);
 
 	void endGame();
 
 	void reset();
+
+	Game getGame();
 
 }
