@@ -11,7 +11,7 @@
 	<http>
 		<intercept-url pattern="/players/*" access="ROLE_USER" />
 		<intercept-url pattern="/location/*" access="ROLE_USER" />
-		<intercept-url pattern="/admin*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/admin/*" access="ROLE_ADMIN" />
 		<http-basic />
 	</http>
  

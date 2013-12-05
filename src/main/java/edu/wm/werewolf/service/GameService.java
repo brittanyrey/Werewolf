@@ -108,6 +108,11 @@ public class GameService {
 	}
 
 	public void newGame(int dayNightFreq) {
+		List <Player> ps= getAllAlive();
+		for (Player p : ps) {
+			userDAO.updateHighScore(100, p.getId());
+		}
+		
 		killsDAO.reset();
 		playerDAO.reset();
 		gameDAO.reset();

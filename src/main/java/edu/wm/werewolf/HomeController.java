@@ -129,7 +129,7 @@ public class HomeController {
 	@RequestMapping(value = "players/vote", method=RequestMethod.POST)
 	public void vote(String voterID, String suspectID)
 	{
-		logger.info("voterID" + " "  +suspectID);
+		logger.info("voterID" + " "+voterID + "susid"  +suspectID);
 		gameService.vote(voterID, suspectID);
 		logger.info("Vote cast");
 	}
