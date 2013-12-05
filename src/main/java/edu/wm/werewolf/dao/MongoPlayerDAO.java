@@ -1,5 +1,6 @@
 package edu.wm.werewolf.dao;
 
+import java.awt.event.ItemEvent;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,8 +66,11 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		List<Player> players = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
+			GPSLocation gps = new GPSLocation();
+			gps.setLatitude((double) ((BasicDBList)player.get("location")).get(1));
+			gps.setLongitude((double) ((BasicDBList)player.get("location")).get(0));
 			Player alivePlayer = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					(boolean) player.get("isDead"),gps,
 					(String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			alivePlayer.setLastUpdate((Date) player.get("lastUpdate"));
@@ -124,8 +128,11 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		Player playerObject = null;
 		if (cursor.hasNext()) {
 			DBObject player = cursor.next();
+			GPSLocation gps = new GPSLocation();
+			gps.setLatitude((double) ((BasicDBList)player.get("location")).get(1));
+			gps.setLongitude((double) ((BasicDBList)player.get("location")).get(0));
 			playerObject = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					(boolean) player.get("isDead"), gps,
 					(String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			playerObject.setLastUpdate((Date) player.get("lastUpdate"));
@@ -151,8 +158,11 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		List<Player> players = new ArrayList<>();
 		while (locCursor.hasNext()) {
 			DBObject player = locCursor.next();
+			GPSLocation gps = new GPSLocation();
+			gps.setLatitude((double) ((BasicDBList)player.get("location")).get(1));
+			gps.setLongitude((double) ((BasicDBList)player.get("location")).get(0));
 			Player alivePlayer = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					(boolean) player.get("isDead"), gps,
 					 (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			alivePlayer.setLastUpdate((Date) player.get("lastUpdate"));
@@ -190,8 +200,11 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		List<Player> players = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
+			GPSLocation gps = new GPSLocation();
+			gps.setLatitude((double) ((BasicDBList)player.get("location")).get(1));
+			gps.setLongitude((double) ((BasicDBList)player.get("location")).get(0));
 			Player werewolves = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					(boolean) player.get("isDead"), gps,
 					(String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 
@@ -210,8 +223,11 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		List<Player> players = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
+			GPSLocation gps = new GPSLocation();
+			gps.setLatitude((double) ((BasicDBList)player.get("location")).get(1));
+			gps.setLongitude((double) ((BasicDBList)player.get("location")).get(0));
 			Player townies = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					(boolean) player.get("isDead"), gps,
 					 (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			townies.setLastUpdate((Date) player.get("lastUpdate"));
