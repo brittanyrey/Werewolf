@@ -213,8 +213,11 @@ public class GameService {
 		Player p;
 		try {
 			p = playerDAO.getPlayerByUserID(user);
-			return new Stats(u.getScore(), p.isDead(), p.isWerewolf(),
-					0, u.getImageURL());
+			return new Stats(u.getScore(),
+					p.isDead(), 
+					p.isWerewolf(),
+					0, 
+					u.getImageURL());
 		} catch (NoPlayerFoundException e) {
 			e.printStackTrace();
 		}		
