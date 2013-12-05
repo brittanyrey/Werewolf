@@ -160,8 +160,7 @@ public class GameService {
 	}
 
 	public void vote(String voter, String suspect) {
-		// TODO take out comment
-		if (gameDAO.getIsRunning()) {// && !gameDAO.isNight()) {
+		if (gameDAO.getIsRunning() && !gameDAO.getGame().isNight()) {
 			playerDAO.vote(voter, suspect);
 		}
 	}
@@ -182,9 +181,19 @@ public class GameService {
 				userDAO.updateHighScore(1, aliveList.get(x).getUserId());
 			}
 		}
+		else {
+			Game game = gameDAO.getGame();
+			Date currentDate = new Date();
+			float timeElapsed = currentDate.getTime() - game.getCreatedDate().getTime();
+			int numOfcycles = (int) (timeElapsed/game.getDayNightFreq());
+			if (timeElapsed - ((numOfcycles)*game.getDayNightFreq())<51000)	{
+				Player player = playerDAO.getPlayerWithMostVotes();
+				playerDAO.setDead(player.getUserId());
+			}
 		// TODO
 		// -if it's time to collect votes.
 		// -must vote off person who is voted most
+	}
 	}
 
 	public void addUser(String id, String firstName, String lastName,
