@@ -104,7 +104,7 @@ public class GameService {
 	
 	public String getPassword(String usr) {
 		User user = userDAO.getUserbyID(usr);
-		return user.getHashedPassword();
+		return user.getHashedPassword() == null ? "fail" : user.getHashedPassword();
 	}
 
 	public boolean isAdmin(String id) {
