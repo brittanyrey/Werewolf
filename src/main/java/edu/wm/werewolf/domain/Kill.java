@@ -7,17 +7,15 @@ public class Kill {
 	private String killerID;
 	private String victimID;
 	private Date timestampDate;
-	private double lat;
-	private double lng;
+	private GPSLocation location;
 	
 	public Kill(String killerID, String victimID, Date timestampDate,
-			double lat, double lng) {
+			GPSLocation location) {
 		super();
 		this.killerID = killerID;
 		this.victimID = victimID;
 		this.timestampDate = timestampDate;
-		this.lat = lat;
-		this.lng = lng;
+		this.location = location;
 	}
 	
 	public String getKillerID() {
@@ -38,17 +36,11 @@ public class Kill {
 	public void setTimestampDate(Date timestampDate) {
 		this.timestampDate = timestampDate;
 	}
-	public double getLat() {
-		return lat;
+	public GPSLocation getLocation() {
+		return location;
 	}
-	public void setLat(double lat) {
-		this.lat = lat;
-	}
-	public double getLng() {
-		return lng;
-	}
-	public void setLng(double lng) {
-		this.lng = lng;
+	public void setLat(GPSLocation location) {
+		this.location = location;
 	}
 	
 	
