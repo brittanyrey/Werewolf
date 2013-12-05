@@ -201,8 +201,8 @@ public class GameService {
 		}
 		else if (gameDAO.getIsRunning()) {
 			Game game = gameDAO.getGame();
-			return new NumDaysAndNightCycles(game.getDays(), game.isNight(), playerDAO.getAllAlive().size(), 
-					userDAO.getAllUsers().size(), game.getDayNightFreq());
+			return new NumDaysAndNightCycles(game.getDays(), game.isNight(), playerDAO.getAllWerewolves().size(),
+					playerDAO.getAllAlive().size(), game.getDayNightFreq());
 		}
 		return new NumDaysAndNightCycles(0, true, 0, 0, 0);
 	}
