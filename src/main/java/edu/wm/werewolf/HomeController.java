@@ -59,6 +59,7 @@ public class HomeController {
 	@RequestMapping(value = "admin/newGame", method=RequestMethod.POST)
 	public void newGame(String id, int dayNightFreq)
 	{
+		logger.info("request new game started by: " + id +"with DNF "+ dayNightFreq);
 		if (gameService.isAdmin(id)) 
 		{
 			gameService.newGame(dayNightFreq);
