@@ -163,7 +163,6 @@ public class GameService {
 	}
 
 	public void checkGame() {
-		userDAO.reset();
 		if (gameDAO == null) {
 		}
 
