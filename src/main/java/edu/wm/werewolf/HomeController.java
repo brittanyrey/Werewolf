@@ -83,6 +83,14 @@ public class HomeController {
 		}
 	}
 	
+	@RequestMapping(value = "/login", method=RequestMethod.GET)
+	public @ResponseBody String login(String user)
+	{
+		logger.info("login attempt return pass for "+user);
+		String pwrd = gameService.getPassword(user);
+		return pwrd;
+	}
+	
 	@RequestMapping(value = "/players/alive", method=RequestMethod.GET)
 	public @ResponseBody List<Player> getAllAlive()
 	{
