@@ -2,6 +2,7 @@ package edu.wm.werewolf;
 
 import java.security.Principal;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -84,12 +85,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
-	public @ResponseBody String login(String user)
+	public @ResponseBody List<String> login(String user)
 	{
 		logger.info("login attempt return pass for "+user);
 		String pwrd = gameService.getPassword(user);
 		logger.info("pwrd ="+ pwrd);
-		return pwrd;
+		List <String> info = new ArrayList<String>();
+		info.add(pwrd);
+		info.add(String.valueOf(gameService.isAdmin(user)));
+		return info;
 	}
 	
 	@RequestMapping(value = "/players/alive", method=RequestMethod.GET)
