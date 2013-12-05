@@ -115,4 +115,10 @@ public class MongoUserDao implements IUserDAO{
 			table.update(searchQuery, newDocument);
 		}
 	}
+
+	@Override
+	public void reset() { 
+		DBCollection table= db.getCollection("user");
+		table.drop();
+	}
 }
