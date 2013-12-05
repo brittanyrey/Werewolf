@@ -20,6 +20,7 @@ import edu.wm.werewolf.domain.Game;
 import edu.wm.werewolf.domain.Kill;
 import edu.wm.werewolf.domain.NumDaysAndNightCycles;
 import edu.wm.werewolf.domain.Player;
+import edu.wm.werewolf.domain.Stats;
 import edu.wm.werewolf.domain.User;
 import edu.wm.werewolf.service.GameService;
 
@@ -149,10 +150,10 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "players/stats", method=RequestMethod.GET)
-	public void vote(String user)
+	public Stats vote(String user)
 	{
 		logger.info("get Status for " + user);
-		gameService.getStats(user);
+		return gameService.getStats(user);
 	}
 	
 	public void CheckGameOperation () {
