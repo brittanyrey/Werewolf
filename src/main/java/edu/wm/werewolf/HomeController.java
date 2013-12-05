@@ -150,7 +150,7 @@ public class HomeController {
 	@RequestMapping(value = "players/stats", method=RequestMethod.GET)
 	public void vote(String user)
 	{
-		logger.info("voterID" + user);
+		logger.info("get Status for " + user);
 		gameService.getStats(user);
 	}
 	
