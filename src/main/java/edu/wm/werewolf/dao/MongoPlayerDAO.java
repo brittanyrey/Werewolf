@@ -47,8 +47,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		DBCollection table = db.getCollection("players");
 		BasicDBObject documentDetail = new BasicDBObject();
 		documentDetail.put("id", player.getId());
-		documentDetail.put("lat", player.getLat());
-		documentDetail.put("lng", player.getLng());
+		documentDetail.put("location", player.getLocation());
 		documentDetail.put("lastUpdate", player.getLastUpdate());
 		documentDetail.put("userID", player.getUserId());
 		documentDetail.put("isDead", player.isDead());
@@ -67,8 +66,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
 			Player alivePlayer = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (double) player.get("lat"),
-					(double) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					(String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			alivePlayer.setLastUpdate((Date) player.get("lastUpdate"));
 			alivePlayer.setVotedAgainst((String)player.get("votedAgainst")); 
@@ -106,8 +105,7 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		DBCollection table = db.getCollection("players");
 
 		BasicDBObject locObject = new BasicDBObject();
-		locObject.put("lat", loc.getLatitude());
-		locObject.put("lng", loc.getLongitude());
+		locObject.put("location", loc.getLongitude());
 		locObject.put("lastUpdate", loc.getTime());
 
 		BasicDBObject newDocument = new BasicDBObject();
@@ -127,8 +125,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		if (cursor.hasNext()) {
 			DBObject player = cursor.next();
 			playerObject = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (double) player.get("lat"),
-					(double) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					(String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			playerObject.setLastUpdate((Date) player.get("lastUpdate"));
 			playerObject.setVotedAgainst((String)player.get("votedAgainst")); 
@@ -142,17 +140,20 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		DBCollection table = db.getCollection("players");
 		BasicDBObject locQuery = new BasicDBObject();
 		
-		locQuery.put("lng", BasicDBObjectBuilder.start().append("$near",  p.getLng()).append("$maxDistance", 12).get());//.002
-		locQuery.put("lat", BasicDBObjectBuilder.start().append("$near",  p.getLat()).append("$maxDistance", 12).get());
+		locQuery.put("location", BasicDBObjectBuilder.start().append("$near",  p.getLocation()).append("$maxDistance", 12).get());
+		
+		DBObject index2d = BasicDBObjectBuilder.start("location", "2d").get();
+        table.ensureIndex(index2d);
 		
 		DBCursor  locCursor = table.find(locQuery);
+		
 		
 		List<Player> players = new ArrayList<>();
 		while (locCursor.hasNext()) {
 			DBObject player = locCursor.next();
 			Player alivePlayer = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (double) player.get("lat"),
-					(double) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					 (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			alivePlayer.setLastUpdate((Date) player.get("lastUpdate"));
 			alivePlayer.setVotedAgainst((String)player.get("votedAgainst")); 
@@ -190,8 +191,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
 			Player werewolves = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (double) player.get("lat"),
-					(double) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					(String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 
 			werewolves.setLastUpdate((Date) player.get("lastUpdate"));
@@ -210,8 +211,8 @@ public class MongoPlayerDAO implements IPlayerDAO {
 		while (cursor.hasNext()) {
 			DBObject player = cursor.next();
 			Player townies = new Player((String) player.get("id"),
-					(boolean) player.get("isDead"), (double) player.get("lat"),
-					(double) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isDead"), (GPSLocation) player.get("location"),
+					 (String) player.get("userID"),
 					(boolean) player.get("isWerewolf"));
 			townies.setLastUpdate((Date) player.get("lastUpdate"));
 			townies.setVotedAgainst((String)player.get("votedAgainst")); 
