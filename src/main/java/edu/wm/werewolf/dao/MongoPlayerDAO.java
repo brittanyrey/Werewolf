@@ -16,7 +16,9 @@ import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -136,27 +138,27 @@ public class MongoPlayerDAO implements IPlayerDAO {
 
 	// TODO fix this
 	@Override
-	public List<Player> getAllNear(Player player) {
+	public List<Player> getAllNear(Player p) {
 		DBCollection table = db.getCollection("players");
-		List<Player> allPlayersNear = new ArrayList<Player>();
 		BasicDBObject locQuery = new BasicDBObject();
-		locQuery.put("loc", new BasicDBObject("$near", new Double[] {
-				player.getLng(), player.getLat() }));
-		DBCursor locCursor = table.find(locQuery);
-
+		
+		locQuery.put("lng", BasicDBObjectBuilder.start().append("$near",  p.getLng()).append("$maxDistance", .002).get());
+		locQuery.put("lat", BasicDBObjectBuilder.start().append("$near",  p.getLat()).append("$maxDistance", .002).get());
+		
+		DBCursor  locCursor = table.find(locQuery);=
+		
+		List<Player> players = new ArrayList<>();
 		while (locCursor.hasNext()) {
-			DBObject result = locCursor.next();
-			try {
-				if ((String) result.get("isDead") != "false") {
-					allPlayersNear.add(getPlayerByUserID((String) result
-							.get("id")));
-				}
-			} catch (NoPlayerFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			DBObject player = locCursor.next();
+			Player alivePlayer = new Player((String) player.get("id"),
+					(boolean) player.get("isDead"), (double) player.get("lat"),
+					(double) player.get("lng"), (String) player.get("userID"),
+					(boolean) player.get("isWerewolf"));
+			alivePlayer.setLastUpdate((Date) player.get("lastUpdate"));
+			alivePlayer.setVotedAgainst((String)player.get("votedAgainst")); 
+			players.add(alivePlayer);
 		}
-		return allPlayersNear;
+		return players;
 	}
 
 	@Override
