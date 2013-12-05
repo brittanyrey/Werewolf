@@ -12,6 +12,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import edu.wm.werewolf.domain.GPSLocation;
 import edu.wm.werewolf.domain.Kill;
 import edu.wm.werewolf.domain.Player;
 import edu.wm.werewolf.domain.User;
@@ -33,8 +34,7 @@ public class MongoKillsDAO implements IKillsDAO {
 		DBCollection table = db.getCollection("kills");
 		BasicDBObject documentDetail = new BasicDBObject();
 		documentDetail.put("killer", kill.getKillerID());
-		documentDetail.put("lat", kill.getLat());
-		documentDetail.put("lng", kill.getLng());
+		documentDetail.put("location", kill.getLocation());
 		documentDetail.put("victim", kill.getVictimID());
 		documentDetail.put("time", kill.getTimestampDate());
 	 
@@ -51,7 +51,7 @@ public class MongoKillsDAO implements IKillsDAO {
 		{
 			DBObject kill = cursor.next();
 			Kill killItem = new Kill((String)kill.get("killer"), (String)kill.get("victim"),
-					(Date)kill.get("time"), (double)kill.get("lat"), (double)kill.get("lng"));
+					(Date)kill.get("time"), (GPSLocation)kill.get("location"));
 		
 			allKills.add(killItem);
 		}

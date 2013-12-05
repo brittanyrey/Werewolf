@@ -56,7 +56,7 @@ public class MongoGameDAO implements IGameDAO{
 	public Game getGame () {
 		DBCollection table = db.getCollection("game");
 		BasicDBObject query = new BasicDBObject("isRunning", true);
-		DBCursor cursor =  (DBCursor) table.find(query);
+		DBCursor cursor = table.find(query);
 		if (cursor.hasNext())
 		{
 			DBObject gameInfo = cursor.next();
